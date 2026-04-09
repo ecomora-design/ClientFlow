@@ -38,6 +38,24 @@ export default function App() {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+useEffect(() => {
+  const elements = document.querySelectorAll(".reveal");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  elements.forEach((el) => observer.observe(el));
+
+  return () => observer.disconnect();
+}, []);
 
   function formatTime(seconds) {
     const h = Math.floor(seconds / 3600);
@@ -2167,7 +2185,7 @@ export default function App() {
 
         <section id="faq" className="section alt">
           <div className="container">
-            <div className="section-intro center fade-up">
+            <div className="section-intro center reveal">
               <div className="section-kicker">FAQ</div>
               <h2 className="section-title">Domande frequenti</h2>
               <p className="section-text">
