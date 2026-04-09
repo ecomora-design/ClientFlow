@@ -1246,17 +1246,24 @@ export default function App() {
         }
 
         .wa-float {
-          position: fixed;
-          right: 18px;
-          bottom: 18px;
-          z-index: 120;
-          background: #25d366;
-          color: white;
-          padding: 14px 18px;
-          border-radius: 999px;
-          font-weight: 700;
-          box-shadow: 0 14px 30px rgba(0,0,0,0.32);
-        }
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 120;
+  background: linear-gradient(135deg, #25d366, #1ebe5d);
+  color: white;
+  padding: 14px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.32);
+}
+
+/* NASCONDI SU MOBILE */
+@media (max-width: 768px) {
+  .wa-float {
+    display: none;
+  }
+}
 
         .popup-overlay {
           position: fixed;
@@ -1835,15 +1842,9 @@ export default function App() {
                 </a>
               </div>
 
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noreferrer"
-                className="mobile-wa"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                WhatsApp
-              </a>
+              <a href={whatsappLink} target="_blank" rel="noreferrer" className="wa-float">
+  Scrivici
+</a>
             </div>
           </div>
         </header>
