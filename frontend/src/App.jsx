@@ -777,79 +777,86 @@ export default function App() {
         }
 
         .hero-metrics {
-          display: grid;
-          grid-template-columns: 1.18fr 0.82fr;
-          gap: 16px;
-        }
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: 14px;
+  align-items: stretch;
+}
 
-        .metric-main,
-        .metric-card,
-        .service-card,
-        .reason-card,
-        .testimonial-card,
-        .price-card,
-        .faq-item,
-        .info-box,
-        .contact-box {
-          border-radius: 26px;
-          border: 1px solid rgba(255,255,255,0.08);
-          background:
-            linear-gradient(180deg, rgba(88,168,255,0.08), rgba(122,92,255,0.04)),
-            linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-          box-shadow: 0 18px 45px rgba(0,0,0,0.18);
-        }
+.metric-main,
+.metric-card,
+.service-card,
+.reason-card,
+.testimonial-card,
+.price-card,
+.faq-item,
+.info-box,
+.contact-box {
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background:
+    linear-gradient(180deg, rgba(88,168,255,0.07), rgba(122,92,255,0.035)),
+    linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
+  box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+}
 
-        .metric-main,
-        .metric-card,
-        .service-card,
-        .reason-card,
-        .testimonial-card,
-        .price-card,
-        .info-box,
-        .contact-box {
-          padding: 22px;
-        }
+.metric-main,
+.metric-card,
+.service-card,
+.reason-card,
+.testimonial-card,
+.price-card,
+.info-box,
+.contact-box {
+  padding: 22px;
+}
 
-        .metric-kicker,
-        .section-kicker {
-          font-size: 12px;
-          color: #9db0ff;
-          text-transform: uppercase;
-          letter-spacing: 0.16em;
-          margin-bottom: 10px;
-        }
+.metric-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+}
 
-        .metric-title {
-          font-size: 30px;
-          line-height: 1.05;
-          font-weight: 900;
-          letter-spacing: -0.05em;
-          margin-bottom: 10px;
-          color: white;
-        }
+.metric-title {
+  font-size: 26px;
+  line-height: 1.08;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  margin-bottom: 10px;
+  color: white;
+}
 
-        .metric-text,
-        .service-card p,
-        .reason-card p,
-        .testimonial-card p {
-          font-size: 14px;
-          line-height: 1.7;
-          color: rgba(255,255,255,0.66);
-        }
+.metric-text,
+.service-card p,
+.reason-card p,
+.testimonial-card p {
+  font-size: 14px;
+  line-height: 1.68;
+  color: rgba(255,255,255,0.66);
+}
 
-        .metric-value {
-          font-size: 34px;
-          font-weight: 900;
-          line-height: 1;
-          margin-bottom: 8px;
-          letter-spacing: -0.04em;
-        }
+.metric-card {
+  min-height: 112px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 18px 18px;
+}
 
-        .metric-label {
-          color: rgba(255,255,255,0.62);
-          font-size: 13px;
-          line-height: 1.5;
-        }
+.metric-value {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -0.04em;
+}
+
+.metric-label {
+  color: rgba(255,255,255,0.60);
+  font-size: 12px;
+  line-height: 1.45;
+}
 
         .section {
           padding: 84px 0;
@@ -1499,28 +1506,34 @@ export default function App() {
           }
 
           .hero-metrics {
-            grid-template-columns: 1fr;
-          }
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
 
-          .metric-main,
-          .metric-card {
-            text-align: center;
-            padding: 16px;
-          }
+.metric-main,
+.metric-card {
+  text-align: center;
+  padding: 16px;
+}
 
-          .metric-title {
-            font-size: 21px;
-          }
+.metric-card {
+  min-height: auto;
+}
 
-          .metric-value {
-            font-size: 24px;
-          }
+.metric-title {
+  font-size: 20px;
+  line-height: 1.1;
+}
 
-          .metric-text,
-          .metric-label {
-            font-size: 13px;
-            line-height: 1.5;
-          }
+.metric-value {
+  font-size: 23px;
+}
+
+.metric-text,
+.metric-label {
+  font-size: 13px;
+  line-height: 1.5;
+}
 
           .section {
             padding: 58px 0;
