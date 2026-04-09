@@ -699,18 +699,79 @@ export default function App() {
         }
 
         .btn-primary {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          padding: 15px 22px;
-          border-radius: 16px;
-          background: linear-gradient(135deg, #58a8ff, #7a5cff);
-          color: white;
-          font-weight: 800;
-          border: none;
-          cursor: pointer;
-          box-shadow: 0 18px 50px rgba(88,168,255,0.18);
-        }
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 26px;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+
+  color: white;
+  background: linear-gradient(135deg, #58a8ff, #7a5cff);
+
+  box-shadow:
+    0 10px 30px rgba(88,168,255,0.25),
+    0 0 0 rgba(88,168,255,0);
+
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+/* GLOW */
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #58a8ff, #7a5cff);
+  opacity: 0.4;
+  filter: blur(12px);
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+/* HOVER */
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 18px 45px rgba(88,168,255,0.35),
+    0 0 40px rgba(122,92,255,0.25);
+}
+
+.btn-primary:hover::before {
+  opacity: 0.7;
+}
+
+/* CLICK */
+.btn-primary:active {
+  transform: scale(0.96);
+}
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -120%;
+  width: 60%;
+  height: 200%;
+  transform: rotate(20deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.25),
+    transparent
+  );
+  transition: 0.8s;
+}
+
+.btn-primary:hover::after {
+  left: 150%;
+}
 
         .btn-secondary {
           display: inline-flex;
@@ -1376,7 +1437,12 @@ export default function App() {
           .offer-bar {
             padding: 6px 10px 0;
           }
-
+.btn-primary {
+  width: 100%;
+  padding: 15px;
+  font-size: 14px;
+  border-radius: 16px;
+}
           .offer-bar-inner {
             width: min(520px, 100%);
             border-radius: 14px;
