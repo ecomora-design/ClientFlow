@@ -10,6 +10,7 @@ export default function App() {
     name: "",
     business: "",
     phone: "",
+    service: "",
     message: "",
   });
   const [sending, setSending] = useState(false);
@@ -18,11 +19,16 @@ export default function App() {
   const [openFaq, setOpenFaq] = useState(0);
 
   const whatsappLink = useMemo(() => {
-    const text = encodeURIComponent(
-      `Ciao, sono ${form.name || ""}. Vorrei informazioni su ClientFlow per ${
-        form.business || "la mia attività"
-      }. ${form.message || ""}`
-    );
+    const lines = [
+      "Ciao, vorrei informazioni su ClientFlow.",
+      form.name ? `Nome: ${form.name}` : "",
+      form.business ? `Attività: ${form.business}` : "",
+      form.phone ? `Telefono: ${form.phone}` : "",
+      form.service ? `Pacchetto di interesse: ${form.service}` : "",
+      form.message ? `Messaggio: ${form.message}` : "",
+    ].filter(Boolean);
+
+    const text = encodeURIComponent(lines.join("\n"));
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
   }, [form]);
 
@@ -42,12 +48,13 @@ export default function App() {
 
   function goToContacts(service = "") {
     const section = document.getElementById("contatti");
-    if (service) {
-      setForm((prev) => ({
-        ...prev,
-        message: `Ciao, vorrei informazioni su ${service}.`,
-      }));
-    }
+
+    setForm((prev) => ({
+      ...prev,
+      service,
+      message: service ? `Ciao, vorrei informazioni su ${service}.` : prev.message,
+    }));
+
     if (section) section.scrollIntoView({ behavior: "smooth" });
     setMobileMenuOpen(false);
   }
@@ -62,13 +69,15 @@ export default function App() {
       setSending(true);
       await fetch(`${API_URL}/contacts`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           name: form.name,
           business_name: form.business,
           phone: form.phone,
           email: "",
-          service_interest: "clientflow",
+          service_interest: form.service || "clientflow",
           message: form.message,
         }),
       });
@@ -122,15 +131,6 @@ export default function App() {
     },
   ];
 
-  const sectors = [
-    "Parrucchieri",
-    "Centri estetici",
-    "Make-up artist",
-    "Ristoranti",
-    "Pizzerie",
-    "Attività locali",
-  ];
-
   const testimonials = [
     {
       name: "Salone Lucia",
@@ -152,17 +152,6 @@ export default function App() {
     },
   ];
 
-  const caseStudies = [
-    {
-      title: "Beauty: più ordine nelle prenotazioni",
-      text: "Una struttura più semplice ha reso le richieste più ordinate e l’esperienza cliente molto più pulita.",
-    },
-    {
-      title: "Food: più contatti e meno caos",
-      text: "Con un sistema più chiaro il locale riceve richieste meglio organizzate e viene percepito come più professionale.",
-    },
-  ];
-
   const pricing = [
     {
       name: "Software",
@@ -175,11 +164,12 @@ export default function App() {
         "Più ordine nelle richieste",
         "Più facilità nel far tornare i clienti",
       ],
-      cta: "Attiva la promo",
+      cta: "Software promo 39€/mese",
+      ctaLabel: "Attiva la promo",
     },
     {
       name: "Sito Web",
-      price: "Da 499€",
+      price: "499€",
       highlight: false,
       subtitle: "Ingresso professionale",
       features: [
@@ -188,11 +178,12 @@ export default function App() {
         "Perfetto anche su mobile",
         "Immagine più autorevole",
       ],
-      cta: "Richiedi il sito",
+      cta: "Sito Web da 499€",
+      ctaLabel: "Richiedi il sito",
     },
     {
       name: "E-commerce",
-      price: "Da 1500€",
+      price: "1500€",
       highlight: false,
       subtitle: "Per vendere online",
       features: [
@@ -201,7 +192,8 @@ export default function App() {
         "Struttura su misura",
         "Più valore percepito",
       ],
-      cta: "Richiedi e-commerce",
+      cta: "E-commerce da 1500€",
+      ctaLabel: "Richiedi e-commerce",
     },
   ];
 
@@ -756,38 +748,6 @@ export default function App() {
           box-shadow: 0 10px 28px rgba(88,168,255,0.24);
         }
 
-        .hero-proof {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 12px;
-          margin-top: 26px;
-          max-width: 520px;
-        }
-
-        .hero-proof-item {
-          padding: 14px 14px 12px;
-          border-radius: 18px;
-          border: 1px solid rgba(255,255,255,0.07);
-          background:
-            linear-gradient(180deg, rgba(88,168,255,0.06), rgba(122,92,255,0.03)),
-            rgba(255,255,255,0.02);
-        }
-
-        .hero-proof-number {
-          font-size: 24px;
-          font-weight: 900;
-          letter-spacing: -0.04em;
-          color: white;
-        }
-
-        .hero-proof-label {
-          margin-top: 4px;
-          font-size: 11px;
-          color: rgba(255,255,255,0.56);
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-        }
-
         .hero-visual {
           position: relative;
         }
@@ -827,7 +787,6 @@ export default function App() {
         .service-card,
         .reason-card,
         .testimonial-card,
-        .case-card,
         .price-card,
         .faq-item,
         .info-box,
@@ -845,7 +804,6 @@ export default function App() {
         .service-card,
         .reason-card,
         .testimonial-card,
-        .case-card,
         .price-card,
         .info-box,
         .contact-box {
@@ -873,7 +831,6 @@ export default function App() {
         .metric-text,
         .service-card p,
         .reason-card p,
-        .case-card p,
         .testimonial-card p {
           font-size: 14px;
           line-height: 1.7;
@@ -937,21 +894,23 @@ export default function App() {
 
         .services-grid,
         .reasons-grid,
-        .testimonials-grid {
+        .testimonials-grid,
+        .pricing-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
           gap: 20px;
+        }
+
+        .services-grid,
+        .testimonials-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .reasons-grid {
+          grid-template-columns: repeat(3, 1fr);
         }
 
         .services-grid.four {
           grid-template-columns: repeat(4, 1fr);
-        }
-
-        .cases-grid,
-        .pricing-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 20px;
         }
 
         .pricing-grid {
@@ -978,7 +937,6 @@ export default function App() {
 
         .service-card h3,
         .reason-card h3,
-        .case-card h3,
         .price-card h3,
         .info-box h3 {
           margin: 0 0 12px;
@@ -1099,24 +1057,6 @@ export default function App() {
           line-height: 1.8;
           text-align: left;
           font-size: 14px;
-        }
-
-        .sector-grid {
-          display: grid;
-          grid-template-columns: repeat(6, 1fr);
-          gap: 14px;
-        }
-
-        .sector-box {
-          padding: 16px 12px;
-          border-radius: 18px;
-          background:
-            linear-gradient(180deg, rgba(88,168,255,0.07), rgba(122,92,255,0.04)),
-            #141a28;
-          border: 1px solid rgba(255,255,255,0.07);
-          text-align: center;
-          color: rgba(255,255,255,0.84);
-          font-weight: 600;
         }
 
         .split-section {
@@ -1406,14 +1346,6 @@ export default function App() {
             grid-template-columns: repeat(2, 1fr);
           }
 
-          .cases-grid {
-            grid-template-columns: 1fr 1fr;
-          }
-
-          .sector-grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-
           .hero-grid,
           .split-section,
           .split-section.reverse,
@@ -1528,8 +1460,7 @@ export default function App() {
           .service-card,
           .reason-card,
           .price-card,
-          .testimonial-card,
-          .case-card {
+          .testimonial-card {
             text-align: center;
           }
 
@@ -1560,27 +1491,6 @@ export default function App() {
           .hero-actions {
             gap: 10px;
             margin-top: 24px;
-          }
-
-          .hero-proof {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            max-width: 100%;
-            margin-top: 20px;
-          }
-
-          .hero-proof-item {
-            padding: 12px 10px 10px;
-            border-radius: 16px;
-          }
-
-          .hero-proof-number {
-            font-size: 18px;
-          }
-
-          .hero-proof-label {
-            font-size: 10px;
-            line-height: 1.3;
           }
 
           .hero-top-image {
@@ -1658,19 +1568,13 @@ export default function App() {
           .services-grid.four,
           .reasons-grid,
           .pricing-grid,
-          .testimonials-grid,
-          .cases-grid {
+          .testimonials-grid {
             grid-template-columns: 1fr;
-          }
-
-          .sector-grid {
-            grid-template-columns: repeat(2, 1fr);
           }
 
           .service-card,
           .reason-card,
           .testimonial-card,
-          .case-card,
           .price-card,
           .faq-item,
           .info-box,
@@ -1682,14 +1586,12 @@ export default function App() {
           .service-card,
           .reason-card,
           .testimonial-card,
-          .case-card,
           .price-card {
             padding: 18px;
           }
 
           .service-card h3,
           .reason-card h3,
-          .case-card h3,
           .price-card h3,
           .info-box h3 {
             font-size: 22px;
@@ -1697,7 +1599,6 @@ export default function App() {
 
           .service-card p,
           .reason-card p,
-          .case-card p,
           .testimonial-card p,
           .info-box p {
             font-size: 14px;
@@ -1827,7 +1728,7 @@ export default function App() {
                 className="btn-primary"
                 onClick={() => {
                   setShowPopup(false);
-                  goToContacts("Offerta 39€/mese");
+                  goToContacts("Software promo 39€/mese");
                 }}
               >
                 Richiedi ora
@@ -1947,7 +1848,7 @@ export default function App() {
               </p>
 
               <div className="hero-actions">
-                <button className="btn-primary" onClick={() => goToContacts("Promo software 39€/mese")}>
+                <button className="btn-primary" onClick={() => goToContacts("Software promo 39€/mese")}>
                   Richiedi informazioni
                 </button>
                 <a href="#servizi" className="btn-secondary">Scopri i servizi</a>
@@ -1957,21 +1858,6 @@ export default function App() {
                 <span className="hero-tag promo">🔥 Da 39€/mese</span>
                 <span className="hero-tag">Utilizzabile anche come app</span>
                 <span className="hero-tag">Più clienti che ritornano</span>
-              </div>
-
-              <div className="hero-proof">
-                <div className="hero-proof-item">
-                  <div className="hero-proof-number">39€</div>
-                  <div className="hero-proof-label">promo software</div>
-                </div>
-                <div className="hero-proof-item">
-                  <div className="hero-proof-number">499€</div>
-                  <div className="hero-proof-label">sito web</div>
-                </div>
-                <div className="hero-proof-item">
-                  <div className="hero-proof-number">1500€</div>
-                  <div className="hero-proof-label">e-commerce</div>
-                </div>
               </div>
             </div>
 
@@ -2100,26 +1986,9 @@ export default function App() {
                   </ul>
                   <div className="price-action">
                     <button className="card-btn" onClick={() => goToContacts(plan.cta)}>
-                      {plan.cta}
+                      {plan.ctaLabel}
                     </button>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section alt">
-          <div className="container">
-            <div className="section-intro center fade-up">
-              <div className="section-kicker">Settori</div>
-              <h2 className="section-title">Pensato per attività locali che vogliono crescere davvero.</h2>
-            </div>
-
-            <div className="sector-grid">
-              {sectors.map((item, index) => (
-                <div key={item} className={`sector-box hover-lift fade-up fade-up-delay-${(index % 4) + 1}`}>
-                  {item}
                 </div>
               ))}
             </div>
@@ -2216,24 +2085,6 @@ export default function App() {
           </div>
         </section>
 
-        <section className="section">
-          <div className="container">
-            <div className="section-intro center fade-up">
-              <div className="section-kicker">Case Study</div>
-              <h2 className="section-title">Due esempi concreti di come ClientFlow aiuta.</h2>
-            </div>
-
-            <div className="cases-grid">
-              {caseStudies.map((item, index) => (
-                <div className={`case-card hover-lift shine fade-up fade-up-delay-${index + 1}`} key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section id="faq" className="section alt">
           <div className="container">
             <div className="section-intro center fade-up">
@@ -2289,6 +2140,11 @@ export default function App() {
                 value={form.phone}
                 onChange={(e) => setForm((s) => ({ ...s, phone: e.target.value }))}
                 placeholder="Telefono"
+              />
+              <input
+                value={form.service}
+                onChange={(e) => setForm((s) => ({ ...s, service: e.target.value }))}
+                placeholder="Pacchetto di interesse"
               />
               <textarea
                 value={form.message}
