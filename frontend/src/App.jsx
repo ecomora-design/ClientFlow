@@ -40,6 +40,29 @@ export default function App() {
   }, []);
 useEffect(() => {
   const elements = document.querySelectorAll(".reveal");
+useEffect(() => {
+  const cards = document.querySelectorAll(".tilt");
+
+  cards.forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = -(y - centerY) / 12;
+      const rotateY = (x - centerX) / 12;
+
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+    });
+  });
+}, []);
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -257,7 +280,29 @@ useEffect(() => {
             linear-gradient(180deg, #070a12 0%, #0a0f18 52%, #081019 100%);
           overflow-x: hidden;
         }
+.tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease;
+  will-change: transform;
+}
 
+.tilt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    rgba(255,255,255,0.12),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tilt:hover::before {
+  opacity: 1;
+}
         .bg-glow {
           position: fixed;
           inset: 0;
@@ -2014,7 +2059,7 @@ useEffect(() => {
 
             <div className="services-grid four">
               {services.map((service, index) => (
-                <div className={`service-card hover-lift shine fade-up fade-up-delay-${Math.min(index + 1, 4)}`} key={service.title}>
+  <div className={`service-card reveal hover-lift shine fade-up fade-up-delay-${Math.min(index + 1, 4)}`} key={service.title}>
                   <div>
                     <div className="service-icon">{service.emoji}</div>
                     <h3>{service.title}</h3>
@@ -2171,7 +2216,7 @@ useEffect(() => {
 
             <div className="testimonials-grid">
               {testimonials.map((item, index) => (
-                <div className={`testimonial-card hover-lift shine fade-up fade-up-delay-${Math.min(index + 1, 3)}`} key={item.name}>
+                <div className={`testimonial-card reveal hover-lift shine fade-up-delay-${Math.min(index + 1, 3)}`} key={item.name}>
                   <div className="testimonial-top">★★★★★</div>
                   <p>{item.text}</p>
                   <div className="testimonial-name">{item.name}</div>
