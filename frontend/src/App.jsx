@@ -523,222 +523,310 @@ export default function App() {
         }
 
         .navbar-wrap {
-          position: sticky;
-          top: 14px;
-          z-index: 120;
-          padding: 10px 14px 0;
-        }
+  position: sticky;
+  top: 12px;
+  z-index: 160;
+  padding: 0 14px;
+}
 
-        .navbar-shell {
-          width: min(1180px, calc(100% - 10px));
-          margin: 0 auto;
-          border: 1px solid rgba(255,255,255,0.08);
-          background: rgba(11, 14, 22, 0.70);
-          backdrop-filter: blur(18px) saturate(160%);
-          border-radius: 22px;
-          box-shadow:
-            0 10px 30px rgba(0,0,0,0.20),
-            inset 0 1px 0 rgba(255,255,255,0.04);
-        }
+.navbar-shell {
+  width: min(1180px, calc(100% - 8px));
+  margin: 0 auto;
+  border: 1px solid rgba(255,255,255,0.08);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025)),
+    rgba(10, 14, 24, 0.72);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border-radius: 24px;
+  box-shadow:
+    0 16px 50px rgba(0,0,0,0.28),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
 
-        .navbar-inner {
-          display: grid;
-          grid-template-columns: auto 1fr auto;
-          align-items: center;
-          gap: 18px;
-          padding: 12px 16px;
-          min-height: 70px;
-        }
+.navbar-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 16px;
+  min-height: 74px;
+}
 
-        .brand {
-          display: inline-flex;
-          align-items: center;
-          gap: 12px;
-        }
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-width: max-content;
+}
 
-        .brand img {
-          height: 46px;
-          width: auto;
-          filter: drop-shadow(0 0 18px rgba(122,92,255,0.28));
-        }
+.brand img {
+  height: 46px;
+  width: auto;
+  filter: drop-shadow(0 0 18px rgba(122,92,255,0.24));
+}
 
-        .brand-text {
-          display: flex;
-          flex-direction: column;
-          line-height: 1.05;
-        }
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.02;
+}
 
-        .brand-title {
-          font-size: 18px;
-          font-weight: 800;
-          letter-spacing: -0.02em;
-        }
+.brand-title {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
 
-        .brand-sub {
-          font-size: 11px;
-          color: rgba(255,255,255,0.50);
-          margin-top: 4px;
-        }
+.brand-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.52);
+  margin-top: 4px;
+}
 
-        .nav-center {
-          display: flex;
-          justify-content: center;
-        }
+.nav-center {
+  display: flex;
+  justify-content: center;
+}
 
-        .nav-links {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 6px;
-          border-radius: 999px;
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.05);
-        }
+.nav-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+}
 
-        .nav-links a {
-          padding: 10px 14px;
-          border-radius: 999px;
-          color: rgba(255,255,255,0.72);
-          font-size: 14px;
-          transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease;
-        }
+.nav-links a {
+  position: relative;
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: rgba(255,255,255,0.72);
+  font-size: 14px;
+  font-weight: 600;
+  transition:
+    color 0.22s ease,
+    background 0.22s ease,
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
 
-        .nav-links a:hover {
-          background: rgba(255,255,255,0.06);
-          color: white;
-          transform: translateY(-1px);
-        }
+.nav-links a:hover {
+  background: rgba(255,255,255,0.07);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
 
-        .nav-right {
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
-          gap: 10px;
-        }
+.nav-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
 
-        .wa-top {
-          background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(240,244,255,0.96));
-          color: #090b12;
-          padding: 12px 16px;
-          border-radius: 999px;
-          font-weight: 800;
-          font-size: 14px;
-          border: none;
-          cursor: pointer;
-          box-shadow: 0 8px 24px rgba(255,255,255,0.10);
-        }
+.wa-top {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.98), rgba(236,243,255,0.96));
+  color: #090b12;
+  font-weight: 800;
+  font-size: 14px;
+  box-shadow:
+    0 10px 24px rgba(255,255,255,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
 
-        .menu-toggle {
-          display: none;
-          width: 48px;
-          height: 48px;
-          border-radius: 16px;
-          border: 1px solid rgba(88,168,255,0.16);
-          background:
-            linear-gradient(135deg, rgba(88,168,255,0.18), rgba(122,92,255,0.12)),
-            rgba(255,255,255,0.04);
-          color: white;
-          cursor: pointer;
-          box-shadow:
-            0 10px 24px rgba(0,0,0,0.18),
-            inset 0 1px 0 rgba(255,255,255,0.05);
-        }
+.wa-top:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 14px 28px rgba(255,255,255,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+}
 
-        .menu-lines {
-          position: relative;
-          width: 18px;
-          height: 14px;
-          display: inline-block;
-        }
+.menu-toggle {
+  display: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025)),
+    rgba(255,255,255,0.03);
+  color: white;
+  cursor: pointer;
+  box-shadow:
+    0 8px 22px rgba(0,0,0,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
 
-        .menu-lines span {
-          position: absolute;
-          left: 0;
-          width: 18px;
-          height: 2px;
-          border-radius: 999px;
-          background: white;
-          transition: transform 0.28s ease, opacity 0.28s ease, top 0.28s ease;
-        }
+.menu-lines {
+  position: relative;
+  width: 18px;
+  height: 14px;
+  display: inline-block;
+}
 
-        .menu-lines span:nth-child(1) { top: 0; }
-        .menu-lines span:nth-child(2) { top: 6px; }
-        .menu-lines span:nth-child(3) { top: 12px; }
+.menu-lines span {
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: white;
+  transition: transform 0.28s ease, opacity 0.28s ease, top 0.28s ease;
+}
 
-        .menu-lines.open span:nth-child(1) {
-          top: 6px;
-          transform: rotate(45deg);
-        }
+.menu-lines span:nth-child(1) { top: 0; }
+.menu-lines span:nth-child(2) { top: 6px; }
+.menu-lines span:nth-child(3) { top: 12px; }
 
-        .menu-lines.open span:nth-child(2) {
-          opacity: 0;
-        }
+.menu-lines.open span:nth-child(1) {
+  top: 6px;
+  transform: rotate(45deg);
+}
 
-        .menu-lines.open span:nth-child(3) {
-          top: 6px;
-          transform: rotate(-45deg);
-        }
+.menu-lines.open span:nth-child(2) {
+  opacity: 0;
+}
 
-        .mobile-menu {
-          display: none;
-          padding: 0 14px 14px;
-        }
+.menu-lines.open span:nth-child(3) {
+  top: 6px;
+  transform: rotate(-45deg);
+}
 
-        .mobile-menu.show {
-          display: block;
-        }
+.mobile-menu {
+  display: none;
+  padding: 0 14px 14px;
+}
 
-        .mobile-menu-card {
-          border-top: 1px solid rgba(255,255,255,0.06);
-          padding-top: 14px;
-        }
+.mobile-menu.show {
+  display: block;
+}
 
-        .mobile-menu-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
-        }
+.mobile-menu-card {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 14px;
+}
 
-        .mobile-nav-item {
-          min-height: 88px;
-          border-radius: 20px;
-          border: 1px solid rgba(88,168,255,0.12);
-          background:
-            linear-gradient(135deg, rgba(88,168,255,0.12), rgba(122,92,255,0.10)),
-            rgba(255,255,255,0.03);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          text-align: center;
-          padding: 14px 10px;
-          color: white;
-          backdrop-filter: blur(10px);
-        }
+.mobile-menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
 
-        .mobile-nav-icon {
-          font-size: 20px;
-        }
+.mobile-nav-item {
+  min-height: 84px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+    rgba(255,255,255,0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  padding: 14px 10px;
+  color: white;
+  backdrop-filter: blur(10px);
+}
 
-        .mobile-nav-label {
-          font-size: 13px;
-          font-weight: 700;
-        }
+.mobile-nav-icon {
+  font-size: 18px;
+}
 
-        .mobile-wa {
-          margin-top: 12px;
-          display: inline-flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          padding: 15px 16px;
-          border-radius: 18px;
-          background: linear-gradient(135deg, #58a8ff, #7a5cff);
-          color: white;
-          font-weight: 800;
-          box-shadow: 0 14px 28px rgba(88,168,255,0.18);
-        }
+.mobile-nav-label {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mobile-wa {
+  margin-top: 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 50px;
+  padding: 0 16px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #58a8ff, #7a5cff);
+  color: white;
+  font-weight: 800;
+  box-shadow: 0 14px 28px rgba(88,168,255,0.18);
+}
+
+@media (max-width: 768px) {
+  .nav-center,
+  .nav-right .wa-top {
+    display: none;
+  }
+
+  .navbar-wrap {
+    top: 10px;
+    padding: 0 10px;
+  }
+
+  .navbar-shell {
+    border-radius: 22px;
+  }
+
+  .navbar-inner {
+    grid-template-columns: 48px 1fr 48px;
+    min-height: 70px;
+    padding: 10px 12px;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    justify-self: start;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand {
+    justify-self: center;
+    gap: 0;
+  }
+
+  .brand img {
+    height: 58px;
+  }
+
+  .brand-text {
+    display: none;
+  }
+
+  .mobile-menu-card {
+    padding-top: 12px;
+  }
+
+  .mobile-menu-grid {
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .mobile-nav-item {
+    min-height: 80px;
+    border-radius: 18px;
+    padding: 12px 8px;
+  }
+
+  .mobile-nav-label {
+    font-size: 12px;
+  }
+}
 
         .hero {
   padding: 110px 0 84px;
@@ -1925,85 +2013,84 @@ export default function App() {
       )}
 
       <div className="navbar-wrap">
-        <header className="navbar-shell">
-          <div className="container navbar-inner">
-            <button className="menu-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              <span className={`menu-lines ${mobileMenuOpen ? "open" : ""}`}>
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-            </button>
+  <header className="navbar-shell">
+    <div className="container navbar-inner">
+      <button className="menu-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+        <span className={`menu-lines ${mobileMenuOpen ? "open" : ""}`}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
 
-            <a href="#top" className="brand">
-              <img src="/logo.png" alt="ClientFlow" />
-              <div className="brand-text">
-                <div className="brand-title">ClientFlow</div>
-                <div className="brand-sub">Più clienti. Meno stress.</div>
-              </div>
-            </a>
+      <a href="#top" className="brand">
+        <img src="/logo.png" alt="ClientFlow" />
+        <div className="brand-text">
+          <div className="brand-title">ClientFlow</div>
+          <div className="brand-sub">Più clienti. Meno stress.</div>
+        </div>
+      </a>
 
-            <div className="nav-right">
-              <a href={whatsappLink} target="_blank" rel="noreferrer" className="wa-top">
-                WhatsApp
-              </a>
-            </div>
-
-            <div className="nav-center">
-              <nav className="nav-links">
-                <a href="#servizi">Servizi</a>
-                <a href="#food">Food</a>
-                <a href="#beauty">Beauty</a>
-                <a href="#pricing">Prezzi</a>
-                <a href="#faq">FAQ</a>
-                <a href="#contatti">Contatti</a>
-              </nav>
-            </div>
-          </div>
-
-          <div className={`mobile-menu ${mobileMenuOpen ? "show" : ""}`}>
-            <div className="container mobile-menu-card">
-              <div className="mobile-menu-grid">
-                <a className="mobile-nav-item" href="#servizi" onClick={() => setMobileMenuOpen(false)}>
-                  <span className="mobile-nav-icon">⚡</span>
-                  <span className="mobile-nav-label">Servizi</span>
-                </a>
-                <a className="mobile-nav-item" href="#food" onClick={() => setMobileMenuOpen(false)}>
-                  <span className="mobile-nav-icon">🍽️</span>
-                  <span className="mobile-nav-label">Food</span>
-                </a>
-                <a className="mobile-nav-item" href="#beauty" onClick={() => setMobileMenuOpen(false)}>
-                  <span className="mobile-nav-icon">✂️</span>
-                  <span className="mobile-nav-label">Beauty</span>
-                </a>
-                <a className="mobile-nav-item" href="#pricing" onClick={() => setMobileMenuOpen(false)}>
-                  <span className="mobile-nav-icon">💎</span>
-                  <span className="mobile-nav-label">Prezzi</span>
-                </a>
-                <a className="mobile-nav-item" href="#faq" onClick={() => setMobileMenuOpen(false)}>
-                  <span className="mobile-nav-icon">❔</span>
-                  <span className="mobile-nav-label">FAQ</span>
-                </a>
-                <a className="mobile-nav-item" href="#contatti" onClick={() => setMobileMenuOpen(false)}>
-                  <span className="mobile-nav-icon">📩</span>
-                  <span className="mobile-nav-label">Contatti</span>
-                </a>
-              </div>
-
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noreferrer"
-                className="mobile-wa"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Scrivici
-              </a>
-            </div>
-          </div>
-        </header>
+      <div className="nav-center">
+        <nav className="nav-links">
+          <a href="#servizi">Servizi</a>
+          <a href="#food">Food</a>
+          <a href="#beauty">Beauty</a>
+          <a href="#pricing">Prezzi</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contatti">Contatti</a>
+        </nav>
       </div>
 
+      <div className="nav-right">
+        <a href={whatsappLink} target="_blank" rel="noreferrer" className="wa-top">
+          WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div className={`mobile-menu ${mobileMenuOpen ? "show" : ""}`}>
+      <div className="container mobile-menu-card">
+        <div className="mobile-menu-grid">
+          <a className="mobile-nav-item" href="#servizi" onClick={() => setMobileMenuOpen(false)}>
+            <span className="mobile-nav-icon">⚡</span>
+            <span className="mobile-nav-label">Servizi</span>
+          </a>
+          <a className="mobile-nav-item" href="#food" onClick={() => setMobileMenuOpen(false)}>
+            <span className="mobile-nav-icon">🍽️</span>
+            <span className="mobile-nav-label">Food</span>
+          </a>
+          <a className="mobile-nav-item" href="#beauty" onClick={() => setMobileMenuOpen(false)}>
+            <span className="mobile-nav-icon">✂️</span>
+            <span className="mobile-nav-label">Beauty</span>
+          </a>
+          <a className="mobile-nav-item" href="#pricing" onClick={() => setMobileMenuOpen(false)}>
+            <span className="mobile-nav-icon">💎</span>
+            <span className="mobile-nav-label">Prezzi</span>
+          </a>
+          <a className="mobile-nav-item" href="#faq" onClick={() => setMobileMenuOpen(false)}>
+            <span className="mobile-nav-icon">❔</span>
+            <span className="mobile-nav-label">FAQ</span>
+          </a>
+          <a className="mobile-nav-item" href="#contatti" onClick={() => setMobileMenuOpen(false)}>
+            <span className="mobile-nav-icon">📩</span>
+            <span className="mobile-nav-label">Contatti</span>
+          </a>
+        </div>
+
+        <a
+          href={whatsappLink}
+          target="_blank"
+          rel="noreferrer"
+          className="mobile-wa"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          Scrivici
+        </a>
+      </div>
+    </div>
+  </header>
+</div>
       <main id="top">
        <section className="hero">
   <div className="container hero-grid">
