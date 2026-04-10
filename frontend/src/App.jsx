@@ -741,201 +741,178 @@ export default function App() {
         }
 
         .hero {
-          padding: 92px 0 78px;
-        }
+  padding: 110px 0 84px;
+}
 
-        .hero-grid {
-          display: grid;
-          grid-template-columns: 1.02fr 0.98fr;
-          gap: 48px;
-          align-items: center;
-        }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: center;
+}
 
-        .hero-copy {
-          max-width: 690px;
-        }
+.hero-copy {
+  max-width: 680px;
+}
 
-        .badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 10px 16px;
-          border-radius: 999px;
-          background: rgba(255,255,255,0.05);
-          border: 1px solid rgba(255,255,255,0.08);
-          color: rgba(255,255,255,0.82);
-          font-size: 13px;
-          margin-bottom: 22px;
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-        }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.82);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin-bottom: 22px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+}
 
-        .hero h1 {
-          margin: 0 0 18px;
-          font-size: 72px;
-          line-height: 0.91;
-          letter-spacing: -0.07em;
-          max-width: 760px;
-          font-weight: 900;
-          background: linear-gradient(180deg, #ffffff 0%, #dce7ff 58%, #c3d4ff 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          text-wrap: balance;
-        }
+.hero h1 {
+  margin: 0 0 18px;
+  font-size: 78px;
+  line-height: 0.9;
+  letter-spacing: -0.075em;
+  max-width: 760px;
+  font-weight: 900;
+  background: linear-gradient(180deg, #ffffff 0%, #e7eeff 52%, #bfd0ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-wrap: balance;
+}
 
-        .hero p {
-          margin: 0;
-          max-width: 610px;
-          font-size: 18px;
-          line-height: 1.8;
-          color: rgba(255,255,255,0.70);
-        }
+.hero p {
+  margin: 0;
+  max-width: 600px;
+  font-size: 18px;
+  line-height: 1.78;
+  color: rgba(255,255,255,0.68);
+}
 
-        .hero-actions {
-          display: flex;
-          gap: 14px;
-          flex-wrap: wrap;
-          margin-top: 30px;
-        }
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
 
-        .btn-primary {
-          position: relative;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          padding: 16px 26px;
-          border-radius: 18px;
-          border: none;
-          cursor: pointer;
-          font-weight: 800;
-          font-size: 15px;
-          letter-spacing: -0.01em;
-          color: white;
-          background: linear-gradient(135deg, #58a8ff, #7a5cff);
-          box-shadow:
-            0 10px 30px rgba(88,168,255,0.25),
-            0 0 0 rgba(88,168,255,0);
-          overflow: hidden;
-          transition: all 0.25s ease;
-        }
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
 
-        .btn-primary::before {
-          content: "";
-          position: absolute;
-          inset: -2px;
-          border-radius: inherit;
-          background: linear-gradient(135deg, #58a8ff, #7a5cff);
-          opacity: 0.4;
-          filter: blur(12px);
-          z-index: -1;
-          transition: opacity 0.3s ease;
-        }
+.hero-tag {
+  padding: 9px 13px;
+  border-radius: 999px;
+  background: rgba(88,168,255,0.08);
+  border: 1px solid rgba(88,168,255,0.10);
+  color: rgba(255,255,255,0.84);
+  font-size: 13px;
+}
 
-        .btn-primary:hover {
-          transform: translateY(-2px) scale(1.02);
-          box-shadow:
-            0 18px 45px rgba(88,168,255,0.35),
-            0 0 40px rgba(122,92,255,0.25);
-        }
+.hero-tag.promo {
+  background: linear-gradient(135deg, #58a8ff, #7a5cff);
+  color: white;
+  font-weight: 900;
+  box-shadow: 0 10px 28px rgba(88,168,255,0.24);
+}
 
-        .btn-primary:hover::before {
-          opacity: 0.7;
-        }
+.hero-visual {
+  position: relative;
+}
 
-        .btn-primary:active {
-          transform: scale(0.96);
-        }
+.hero-stack {
+  display: grid;
+  gap: 18px;
+}
 
-        .btn-primary::after {
-          content: "";
-          position: absolute;
-          top: -50%;
-          left: -120%;
-          width: 60%;
-          height: 200%;
-          transform: rotate(20deg);
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,0.25),
-            transparent
-          );
-          transition: 0.8s;
-        }
+.hero-top-card {
+  border-radius: 34px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background:
+    linear-gradient(180deg, rgba(88,168,255,0.10), rgba(122,92,255,0.06)),
+    linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  padding: 14px;
+  box-shadow: 0 34px 90px rgba(0,0,0,0.30);
+}
 
-        .btn-primary:hover::after {
-          left: 150%;
-        }
+.hero-top-image {
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  object-position: center 18%;
+  border-radius: 26px;
+  display: block;
+}
 
-        .btn-secondary {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          padding: 15px 22px;
-          border-radius: 16px;
-          border: 1px solid rgba(255,255,255,0.08);
-          background: rgba(255,255,255,0.05);
-          color: white;
-          font-weight: 700;
-          cursor: pointer;
-        }
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
 
-        .hero-tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-          margin-top: 22px;
-        }
+  .hero-top-image {
+    height: 280px;
+  }
+}
 
-        .hero-tag {
-          padding: 9px 13px;
-          border-radius: 999px;
-          background: rgba(88,168,255,0.08);
-          border: 1px solid rgba(88,168,255,0.10);
-          color: rgba(255,255,255,0.84);
-          font-size: 13px;
-        }
+@media (max-width: 768px) {
+  .hero {
+    padding: 62px 0 40px;
+  }
 
-        .hero-tag.promo {
-          background: linear-gradient(135deg, #58a8ff, #7a5cff);
-          color: white;
-          font-weight: 900;
-          box-shadow: 0 10px 28px rgba(88,168,255,0.24);
-        }
+  .hero-grid {
+    gap: 24px;
+  }
 
-        .hero-visual {
-          position: relative;
-        }
+  .hero-copy {
+    max-width: 100%;
+    text-align: center;
+  }
 
-        .hero-stack {
-          display: grid;
-          gap: 18px;
-        }
+  .hero h1 {
+    font-size: 46px;
+    line-height: 0.94;
+    max-width: 100%;
+    letter-spacing: -0.07em;
+  }
 
-        .hero-top-card {
-          border-radius: 32px;
-          border: 1px solid rgba(255,255,255,0.08);
-          background:
-            linear-gradient(180deg, rgba(88,168,255,0.10), rgba(122,92,255,0.06)),
-            linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-          padding: 14px;
-          box-shadow: 0 34px 90px rgba(0,0,0,0.30);
-        }
+  .hero p {
+    font-size: 14px;
+    line-height: 1.62;
+    max-width: 96%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-        .hero-top-image {
-          width: 100%;
-          height: 310px;
-          object-fit: cover;
-          object-position: center 20%;
-          border-radius: 24px;
-          display: block;
-        }
+  .hero-actions,
+  .hero-tags {
+    justify-content: center;
+  }
 
-        .hero-metrics {
-          display: grid;
-          grid-template-columns: 1.12fr 0.88fr;
-          gap: 14px;
-          align-items: stretch;
-        }
+  .hero-actions {
+    margin-top: 24px;
+    gap: 10px;
+  }
+
+  .hero-top-image {
+    height: 230px;
+    object-position: center 14%;
+  }
+
+  .badge {
+    font-size: 11px;
+    margin-bottom: 18px;
+  }
+
+  .hero-tag {
+    font-size: 11px;
+  }
+}
 
         .metric-main,
         .metric-card,
@@ -2028,48 +2005,80 @@ export default function App() {
       </div>
 
       <main id="top">
-        <section className="hero">
-          <div className="container hero-grid">
-            <div className="hero-copy fade-up">
-              <div className="badge">Software premium · siti professionali · più ritorno clienti</div>
-              <h1>Software e siti premium per far crescere la tua attività e far tornare più clienti.</h1>
-              <p>
-                Aiutiamo attività locali, food e beauty a presentarsi meglio, ricevere più richieste
-                e offrire un’esperienza semplice, moderna e professionale. Più ordine per te, più facilità per il cliente.
-              </p>
+       <section className="hero">
+  <div className="container hero-grid">
+    <div className="hero-copy fade-up">
+      <div className="badge">SOFTWARE PREMIUM · SITI WEB · PIÙ CLIENTI CHE RITORNANO</div>
 
-              <div className="hero-actions">
-                <button className="btn-primary" onClick={() => goToContacts("Software promo 39€/mese")}>
-                  Richiedi informazioni
-                </button>
-                <a href="#servizi" className="btn-secondary">Scopri i servizi</a>
-              </div>
+      <h1>
+        Fai crescere la tua attività con un’immagine più forte e un sistema più semplice.
+      </h1>
 
-              <div className="hero-tags">
-                <span className="hero-tag promo">🔥 Da 39€/mese</span>
-                <span className="hero-tag">Utilizzabile anche come app</span>
-                <span className="hero-tag">Più clienti che ritornano</span>
-              </div>
+      <p>
+        Creiamo software Beauty e Food, siti web ed e-commerce pensati per aumentare
+        il valore percepito della tua attività, semplificare le richieste e aiutare
+        i clienti a tornare più facilmente.
+      </p>
+
+      <div className="hero-actions">
+        <button
+          className="btn-primary"
+          onClick={() => goToContacts("Software promo 39€/mese")}
+        >
+          Scopri come funziona
+        </button>
+
+        <a href="#pricing" className="btn-secondary">
+          Vedi prezzi e soluzioni
+        </a>
+      </div>
+
+      <div className="hero-tags">
+        <span className="hero-tag promo">🔥 Promo da 39€/mese</span>
+        <span className="hero-tag">Esperienza anche come app</span>
+        <span className="hero-tag">Design premium</span>
+      </div>
+    </div>
+
+    <div className="hero-visual fade-scale fade-scale-delay-1">
+      <div className="hero-stack">
+        <div className="hero-top-card hover-lift shine reveal">
+          <img src="/hero-business.jpg" alt="ClientFlow preview" className="hero-top-image" />
+        </div>
+
+        <div className="hero-metrics">
+          <div className="metric-main hover-lift reveal">
+            <div className="metric-kicker">Perché funziona</div>
+            <div className="metric-title">
+              Più ordine per te, più semplicità per il cliente.
+            </div>
+            <div className="metric-text">
+              Un’esperienza chiara, moderna e veloce rende la tua attività più forte,
+              più credibile e più facile da scegliere di nuovo.
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gap: "16px" }}>
+            <div className="metric-card hover-lift reveal">
+              <div className="metric-value">39€</div>
+              <div className="metric-label">Promo software al mese</div>
             </div>
 
-            <div className="hero-visual fade-scale fade-scale-delay-1">
-              <div className="hero-stack">
-                <div className="hero-top-card hover-lift shine">
-                  <img src="/hero-business.jpg" alt="ClientFlow preview" className="hero-top-image" />
-                </div>
+            <div className="metric-card hover-lift reveal">
+              <div className="metric-value">App</div>
+              <div className="metric-label">Uso semplice e immediato</div>
+            </div>
 
-                <div className="hero-metrics">
-                  <div className="metric-main hover-lift">
-                    <div className="metric-kicker">Risultato principale</div>
-                    <div className="metric-title">
-                      Più ordine, più valore percepito, più facilità nel tornare.
-                    </div>
-                    <div className="metric-text">
-                      Ogni soluzione è pensata per migliorare il modo in cui il cliente ti vede,
-                      ti contatta e torna a scegliere la tua attività.
-                    </div>
-                  </div>
-
+            <div className="metric-card hover-lift reveal">
+              <div className="metric-value">+ valore</div>
+              <div className="metric-label">Immagine più premium e professionale</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
                   <div style={{ display: "grid", gap: "16px" }}>
                     <div className="metric-card hover-lift">
                       <div className="metric-value">39€</div>
