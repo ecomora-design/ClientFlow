@@ -38,47 +38,67 @@ export default function App() {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
-useEffect(() => {
-  const elements = document.querySelectorAll(".reveal");
-useEffect(() => {
-  const cards = document.querySelectorAll(".tilt");
 
-  cards.forEach((card) => {
-    card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+  useEffect(() => {
+    const elements = document.querySelectorAll(".reveal");
 
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
 
-      const rotateX = -(y - centerY) / 12;
-      const rotateY = (x - centerX) / 12;
+    elements.forEach((el) => observer.observe(el));
 
-      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const cards = document.querySelectorAll(".tilt");
+
+    const listeners = [];
+
+    cards.forEach((card) => {
+      const onMove = (e) => {
+        if (window.innerWidth <= 768) return;
+
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = -(y - centerY) / 14;
+        const rotateY = (x - centerX) / 14;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        card.style.setProperty("--x", `${x}px`);
+        card.style.setProperty("--y", `${y}px`);
+      };
+
+      const onLeave = () => {
+        card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
+      };
+
+      card.addEventListener("mousemove", onMove);
+      card.addEventListener("mouseleave", onLeave);
+
+      listeners.push({ card, onMove, onLeave });
     });
 
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
-    });
-  });
-}, []);
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
+    return () => {
+      listeners.forEach(({ card, onMove, onLeave }) => {
+        card.removeEventListener("mousemove", onMove);
+        card.removeEventListener("mouseleave", onLeave);
       });
-    },
-    { threshold: 0.15 }
-  );
-
-  elements.forEach((el) => observer.observe(el));
-
-  return () => observer.disconnect();
-}, []);
+    };
+  }, []);
 
   function formatTime(seconds) {
     const h = Math.floor(seconds / 3600);
@@ -98,6 +118,7 @@ useEffect(() => {
 
     if (section) section.scrollIntoView({ behavior: "smooth" });
     setMobileMenuOpen(false);
+    setShowPopup(false);
   }
 
   async function saveLeadAndOpenWhatsApp() {
@@ -280,29 +301,44 @@ useEffect(() => {
             linear-gradient(180deg, #070a12 0%, #0a0f18 52%, #081019 100%);
           overflow-x: hidden;
         }
-.tilt {
-  transform-style: preserve-3d;
-  transition: transform 0.25s ease;
-  will-change: transform;
-}
 
-.tilt::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(
-    circle at var(--x, 50%) var(--y, 50%),
-    rgba(255,255,255,0.12),
-    transparent 60%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+        .reveal {
+          opacity: 0;
+          transform: translateY(34px);
+          transition: opacity 0.8s ease, transform 0.8s ease;
+        }
 
-.tilt:hover::before {
-  opacity: 1;
-}
+        .reveal.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .tilt {
+          position: relative;
+          transform-style: preserve-3d;
+          transition: transform 0.25s ease;
+          will-change: transform;
+        }
+
+        .tilt::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          background: radial-gradient(
+            circle at var(--x, 50%) var(--y, 50%),
+            rgba(255,255,255,0.12),
+            transparent 60%
+          );
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+        }
+
+        .tilt:hover::before {
+          opacity: 1;
+        }
+
         .bg-glow {
           position: fixed;
           inset: 0;
@@ -762,79 +798,73 @@ useEffect(() => {
         }
 
         .btn-primary {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px 26px;
-  border-radius: 18px;
-  border: none;
-  cursor: pointer;
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 16px 26px;
+          border-radius: 18px;
+          border: none;
+          cursor: pointer;
+          font-weight: 800;
+          font-size: 15px;
+          letter-spacing: -0.01em;
+          color: white;
+          background: linear-gradient(135deg, #58a8ff, #7a5cff);
+          box-shadow:
+            0 10px 30px rgba(88,168,255,0.25),
+            0 0 0 rgba(88,168,255,0);
+          overflow: hidden;
+          transition: all 0.25s ease;
+        }
 
-  font-weight: 800;
-  font-size: 15px;
-  letter-spacing: -0.01em;
+        .btn-primary::before {
+          content: "";
+          position: absolute;
+          inset: -2px;
+          border-radius: inherit;
+          background: linear-gradient(135deg, #58a8ff, #7a5cff);
+          opacity: 0.4;
+          filter: blur(12px);
+          z-index: -1;
+          transition: opacity 0.3s ease;
+        }
 
-  color: white;
-  background: linear-gradient(135deg, #58a8ff, #7a5cff);
+        .btn-primary:hover {
+          transform: translateY(-2px) scale(1.02);
+          box-shadow:
+            0 18px 45px rgba(88,168,255,0.35),
+            0 0 40px rgba(122,92,255,0.25);
+        }
 
-  box-shadow:
-    0 10px 30px rgba(88,168,255,0.25),
-    0 0 0 rgba(88,168,255,0);
+        .btn-primary:hover::before {
+          opacity: 0.7;
+        }
 
-  overflow: hidden;
-  transition: all 0.25s ease;
-}
+        .btn-primary:active {
+          transform: scale(0.96);
+        }
 
-/* GLOW */
-.btn-primary::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, #58a8ff, #7a5cff);
-  opacity: 0.4;
-  filter: blur(12px);
-  z-index: -1;
-  transition: opacity 0.3s ease;
-}
+        .btn-primary::after {
+          content: "";
+          position: absolute;
+          top: -50%;
+          left: -120%;
+          width: 60%;
+          height: 200%;
+          transform: rotate(20deg);
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.25),
+            transparent
+          );
+          transition: 0.8s;
+        }
 
-/* HOVER */
-.btn-primary:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow:
-    0 18px 45px rgba(88,168,255,0.35),
-    0 0 40px rgba(122,92,255,0.25);
-}
-
-.btn-primary:hover::before {
-  opacity: 0.7;
-}
-
-/* CLICK */
-.btn-primary:active {
-  transform: scale(0.96);
-}
-.btn-primary::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -120%;
-  width: 60%;
-  height: 200%;
-  transform: rotate(20deg);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,0.25),
-    transparent
-  );
-  transition: 0.8s;
-}
-
-.btn-primary:hover::after {
-  left: 150%;
-}
+        .btn-primary:hover::after {
+          left: 150%;
+        }
 
         .btn-secondary {
           display: inline-flex;
@@ -901,86 +931,95 @@ useEffect(() => {
         }
 
         .hero-metrics {
-  display: grid;
-  grid-template-columns: 1.12fr 0.88fr;
-  gap: 14px;
-  align-items: stretch;
-}
+          display: grid;
+          grid-template-columns: 1.12fr 0.88fr;
+          gap: 14px;
+          align-items: stretch;
+        }
 
-.metric-main,
-.metric-card,
-.service-card,
-.reason-card,
-.testimonial-card,
-.price-card,
-.faq-item,
-.info-box,
-.contact-box {
-  border-radius: 26px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background:
-    linear-gradient(180deg, rgba(88,168,255,0.07), rgba(122,92,255,0.035)),
-    linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
-  box-shadow: 0 18px 45px rgba(0,0,0,0.18);
-}
+        .metric-main,
+        .metric-card,
+        .service-card,
+        .reason-card,
+        .testimonial-card,
+        .price-card,
+        .faq-item,
+        .info-box,
+        .contact-box {
+          border-radius: 26px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background:
+            linear-gradient(180deg, rgba(88,168,255,0.07), rgba(122,92,255,0.035)),
+            linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
+          box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+        }
 
-.metric-main,
-.metric-card,
-.service-card,
-.reason-card,
-.testimonial-card,
-.price-card,
-.info-box,
-.contact-box {
-  padding: 22px;
-}
+        .metric-main,
+        .metric-card,
+        .service-card,
+        .reason-card,
+        .testimonial-card,
+        .price-card,
+        .info-box,
+        .contact-box {
+          padding: 22px;
+        }
 
-.metric-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100%;
-}
+        .metric-kicker,
+        .section-kicker {
+          font-size: 12px;
+          color: #9db0ff;
+          text-transform: uppercase;
+          letter-spacing: 0.16em;
+          margin-bottom: 10px;
+        }
 
-.metric-title {
-  font-size: 26px;
-  line-height: 1.08;
-  font-weight: 900;
-  letter-spacing: -0.045em;
-  margin-bottom: 10px;
-  color: white;
-}
+        .metric-main {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          min-height: 100%;
+        }
 
-.metric-text,
-.service-card p,
-.reason-card p,
-.testimonial-card p {
-  font-size: 14px;
-  line-height: 1.68;
-  color: rgba(255,255,255,0.66);
-}
+        .metric-title {
+          font-size: 26px;
+          line-height: 1.08;
+          font-weight: 900;
+          letter-spacing: -0.045em;
+          margin-bottom: 10px;
+          color: white;
+        }
 
-.metric-card {
-  min-height: 112px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 18px 18px;
-}
+        .metric-text,
+        .service-card p,
+        .reason-card p,
+        .testimonial-card p {
+          font-size: 14px;
+          line-height: 1.68;
+          color: rgba(255,255,255,0.66);
+        }
 
-.metric-value {
-  font-size: 28px;
-  font-weight: 900;
-  line-height: 1;
-  margin-bottom: 8px;
-  letter-spacing: -0.04em;
-}
+        .metric-card {
+          min-height: 112px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 18px 18px;
+        }
 
-.metric-label {
-  color: rgba(255,255,255,0.60);
-  font-size: 12px;
-  line-height: 1.45;
-}
+        .metric-value {
+          font-size: 28px;
+          font-weight: 900;
+          line-height: 1;
+          margin-bottom: 8px;
+          letter-spacing: -0.04em;
+        }
+
+        .metric-label {
+          color: rgba(255,255,255,0.60);
+          font-size: 12px;
+          line-height: 1.45;
+        }
 
         .section {
           padding: 84px 0;
@@ -1370,24 +1409,17 @@ useEffect(() => {
         }
 
         .wa-float {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 120;
-  background: linear-gradient(135deg, #25d366, #1ebe5d);
-  color: white;
-  padding: 14px 18px;
-  border-radius: 999px;
-  font-weight: 700;
-  box-shadow: 0 14px 30px rgba(0,0,0,0.32);
-}
-
-/* NASCONDI SU MOBILE */
-@media (max-width: 768px) {
-  .wa-float {
-    display: none;
-  }
-}
+          position: fixed;
+          right: 18px;
+          bottom: 18px;
+          z-index: 120;
+          background: linear-gradient(135deg, #25d366, #1ebe5d);
+          color: white;
+          padding: 14px 18px;
+          border-radius: 999px;
+          font-weight: 700;
+          box-shadow: 0 14px 30px rgba(0,0,0,0.32);
+        }
 
         .popup-overlay {
           position: fixed;
@@ -1497,15 +1529,21 @@ useEffect(() => {
         }
 
         @media (max-width: 768px) {
+          .tilt {
+            transform: none !important;
+          }
+
           .offer-bar {
             padding: 6px 10px 0;
           }
-.btn-primary {
-  width: 100%;
-  padding: 15px;
-  font-size: 14px;
-  border-radius: 16px;
-}
+
+          .btn-primary {
+            width: 100%;
+            padding: 15px;
+            font-size: 14px;
+            border-radius: 16px;
+          }
+
           .offer-bar-inner {
             width: min(520px, 100%);
             border-radius: 14px;
@@ -1642,34 +1680,34 @@ useEffect(() => {
           }
 
           .hero-metrics {
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
+            grid-template-columns: 1fr;
+            gap: 12px;
+          }
 
-.metric-main,
-.metric-card {
-  text-align: center;
-  padding: 16px;
-}
+          .metric-main,
+          .metric-card {
+            text-align: center;
+            padding: 16px;
+          }
 
-.metric-card {
-  min-height: auto;
-}
+          .metric-card {
+            min-height: auto;
+          }
 
-.metric-title {
-  font-size: 20px;
-  line-height: 1.1;
-}
+          .metric-title {
+            font-size: 20px;
+            line-height: 1.1;
+          }
 
-.metric-value {
-  font-size: 23px;
-}
+          .metric-value {
+            font-size: 23px;
+          }
 
-.metric-text,
-.metric-label {
-  font-size: 13px;
-  line-height: 1.5;
-}
+          .metric-text,
+          .metric-label {
+            font-size: 13px;
+            line-height: 1.5;
+          }
 
           .section {
             padding: 58px 0;
@@ -1856,6 +1894,10 @@ useEffect(() => {
           .card-btn {
             min-height: 50px;
           }
+
+          .wa-float {
+            display: none;
+          }
         }
       `}</style>
 
@@ -1971,9 +2013,15 @@ useEffect(() => {
                 </a>
               </div>
 
-              <a href={whatsappLink} target="_blank" rel="noreferrer" className="wa-float">
-  Scrivici
-</a>
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noreferrer"
+                className="mobile-wa"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Scrivici
+              </a>
             </div>
           </div>
         </header>
@@ -2046,7 +2094,7 @@ useEffect(() => {
 
         <section id="servizi" className="section">
           <div className="container">
-            <div className="section-intro center fade-up">
+            <div className="section-intro center reveal">
               <div className="section-kicker">Cosa offriamo</div>
               <h2 className="section-title">
                 Soluzioni pensate per farti lavorare meglio e farti scegliere di nuovo.
@@ -2059,7 +2107,10 @@ useEffect(() => {
 
             <div className="services-grid four">
               {services.map((service, index) => (
-  <div className={`service-card reveal hover-lift shine fade-up fade-up-delay-${Math.min(index + 1, 4)}`} key={service.title}>
+                <div
+                  className={`service-card tilt reveal hover-lift shine fade-up fade-up-delay-${Math.min(index + 1, 4)}`}
+                  key={service.title}
+                >
                   <div>
                     <div className="service-icon">{service.emoji}</div>
                     <h3>{service.title}</h3>
@@ -2084,7 +2135,7 @@ useEffect(() => {
 
         <section className="section alt">
           <div className="container">
-            <div className="section-intro center fade-up">
+            <div className="section-intro center reveal">
               <div className="section-kicker">Perché funziona</div>
               <h2 className="section-title">
                 Ogni dettaglio è pensato per aiutarti a ricevere più richieste e far tornare più clienti.
@@ -2093,7 +2144,10 @@ useEffect(() => {
 
             <div className="reasons-grid">
               {reasons.map((reason, index) => (
-                <div className={`reason-card hover-lift shine fade-up fade-up-delay-${Math.min(index + 1, 3)}`} key={reason.title}>
+                <div
+                  className={`reason-card tilt reveal hover-lift shine fade-up fade-up-delay-${Math.min(index + 1, 3)}`}
+                  key={reason.title}
+                >
                   <h3>{reason.title}</h3>
                   <p>{reason.text}</p>
                 </div>
@@ -2104,7 +2158,7 @@ useEffect(() => {
 
         <section id="pricing" className="section">
           <div className="container">
-            <div className="section-intro center fade-up">
+            <div className="section-intro center reveal">
               <div className="section-kicker">Prezzi premium</div>
               <h2 className="section-title">Scegli la soluzione più adatta alla tua crescita.</h2>
               <p className="section-text">
@@ -2116,7 +2170,7 @@ useEffect(() => {
               {pricing.map((plan) => (
                 <div
                   key={plan.name}
-                  className={`price-card hover-lift shine fade-up ${plan.highlight ? "featured" : ""}`}
+                  className={`price-card tilt reveal hover-lift shine fade-up ${plan.highlight ? "featured" : ""}`}
                 >
                   {plan.highlight && <div className="featured-badge">PIÙ RICHIESTA</div>}
                   <h3>{plan.name}</h3>
@@ -2140,10 +2194,10 @@ useEffect(() => {
 
         <section id="food" className="section">
           <div className="container split-section">
-            <div className="visual-wrap hover-lift shine">
+            <div className="visual-wrap hover-lift shine reveal">
               <img src="/food-visual.jpg" alt="ClientFlow Food" />
             </div>
-            <div className="info-box hover-lift">
+            <div className="info-box hover-lift reveal">
               <div className="info-pill">ClientFlow Food</div>
               <h3>Più ordine nelle richieste e un’esperienza più semplice per chi ti sceglie.</h3>
               <p>
@@ -2162,7 +2216,7 @@ useEffect(() => {
 
         <section id="beauty" className="section alt">
           <div className="container split-section reverse">
-            <div className="info-box hover-lift">
+            <div className="info-box hover-lift reveal">
               <div className="info-pill">ClientFlow Beauty</div>
               <h3>Più appuntamenti, meno confusione, più valore per il tuo salone.</h3>
               <p>
@@ -2176,7 +2230,7 @@ useEffect(() => {
                 <li>Promo 39€/mese</li>
               </ul>
             </div>
-            <div className="visual-wrap hover-lift shine">
+            <div className="visual-wrap hover-lift shine reveal">
               <img src="/beauty-visual.jpg" alt="ClientFlow Beauty" />
             </div>
           </div>
@@ -2184,10 +2238,10 @@ useEffect(() => {
 
         <section id="web" className="section">
           <div className="container split-section">
-            <div className="visual-wrap hover-lift shine">
+            <div className="visual-wrap hover-lift shine reveal">
               <img src="/web-visual.jpg" alt="ClientFlow Web" />
             </div>
-            <div className="info-box hover-lift">
+            <div className="info-box hover-lift reveal">
               <div className="info-pill">ClientFlow Web</div>
               <h3>Siti ed e-commerce professionali che aumentano fiducia, immagine e contatti.</h3>
               <p>
@@ -2206,7 +2260,7 @@ useEffect(() => {
 
         <section id="testimonials" className="section alt">
           <div className="container">
-            <div className="section-intro center fade-up">
+            <div className="section-intro center reveal">
               <div className="section-kicker">Testimonial</div>
               <h2 className="section-title">Attività reali, risultati più chiari.</h2>
               <p className="section-text">
@@ -2216,7 +2270,10 @@ useEffect(() => {
 
             <div className="testimonials-grid">
               {testimonials.map((item, index) => (
-                <div className={`testimonial-card reveal hover-lift shine fade-up-delay-${Math.min(index + 1, 3)}`} key={item.name}>
+                <div
+                  className={`testimonial-card tilt reveal hover-lift shine fade-up fade-up-delay-${Math.min(index + 1, 3)}`}
+                  key={item.name}
+                >
                   <div className="testimonial-top">★★★★★</div>
                   <p>{item.text}</p>
                   <div className="testimonial-name">{item.name}</div>
@@ -2242,7 +2299,7 @@ useEffect(() => {
               {faqs.map((item, index) => {
                 const isOpen = openFaq === index;
                 return (
-                  <div key={item.q} className="faq-item hover-lift shine">
+                  <div key={item.q} className="faq-item hover-lift shine reveal">
                     <button className="faq-button" onClick={() => setOpenFaq(isOpen ? -1 : index)}>
                       <span>{item.q}</span>
                       <span className="faq-icon">{isOpen ? "−" : "+"}</span>
@@ -2259,7 +2316,7 @@ useEffect(() => {
 
         <section id="contatti" className="section">
           <div className="container contact-grid">
-            <div className="contact-left fade-up">
+            <div className="contact-left reveal">
               <div className="section-kicker">Contatti</div>
               <h2 className="section-title">Richiedi una consulenza e scopri la soluzione giusta per la tua attività.</h2>
               <p className="section-text">
@@ -2268,7 +2325,7 @@ useEffect(() => {
               </p>
             </div>
 
-            <div className="contact-box shine fade-up fade-up-delay-1">
+            <div className="contact-box shine reveal">
               <input
                 value={form.name}
                 onChange={(e) => setForm((s) => ({ ...s, name: e.target.value }))}
