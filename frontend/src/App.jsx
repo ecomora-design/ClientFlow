@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 const WHATSAPP_NUMBER = "393884027650";
 
+
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [offerBarVisible, setOfferBarVisible] = useState(true);
@@ -949,56 +950,21 @@ export default function App() {
 }
 
 @media (max-width: 768px) {
-  .hero {
-    padding: 62px 0 40px;
-  }
-
   .hero-grid {
-    gap: 24px;
-  }
-
-  .hero-copy {
-    max-width: 100%;
-    text-align: center;
+    grid-template-columns: 1fr;
+    gap: 30px;
   }
 
   .hero h1 {
-    font-size: 46px;
-    line-height: 0.94;
-    max-width: 100%;
-    letter-spacing: -0.07em;
+    font-size: 42px;
   }
 
-  .hero p {
-    font-size: 14px;
-    line-height: 1.62;
-    max-width: 96%;
-    margin-left: auto;
-    margin-right: auto;
+  .hero-metrics {
+    grid-template-columns: 1fr;
   }
 
-  .hero-actions,
-  .hero-tags {
-    justify-content: center;
-  }
-
-  .hero-actions {
-    margin-top: 24px;
-    gap: 10px;
-  }
-
-  .hero-top-image {
-    height: 230px;
-    object-position: center 14%;
-  }
-
-  .badge {
-    font-size: 11px;
-    margin-bottom: 18px;
-  }
-
-  .hero-tag {
-    font-size: 11px;
+  .hero {
+    padding: 60px 0;
   }
 }
 
@@ -1144,14 +1110,16 @@ export default function App() {
           grid-template-columns: repeat(3, 1fr);
         }
 
-        .services-grid.four {
-          grid-template-columns: repeat(4, 1fr);
-        }
+       .services-grid.four {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
 
         .pricing-grid {
-          grid-template-columns: repeat(3, 1fr);
-          align-items: stretch;
-        }
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+  gap: 24px;
+}
 
         .service-card,
 .price-card {
@@ -1169,142 +1137,146 @@ export default function App() {
   overflow: hidden;
 }
 
-        .service-icon {
-          width: 44px;
-          height: 44px;
-          border-radius: 14px;
-          background: linear-gradient(135deg, rgba(88,168,255,0.24), rgba(122,92,255,0.20));
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 20px;
-          margin-bottom: 16px;
-        }
+.service-card::after,
+.price-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.10),
+    rgba(255,255,255,0.00) 28%,
+    rgba(255,255,255,0.00) 72%,
+    rgba(255,255,255,0.05)
+  );
+  opacity: 0.75;
+}
 
-        .service-card h3,
-        .reason-card h3,
-        .price-card h3,
-        .info-box h3 {
-          margin: 0 0 12px;
-          font-size: 24px;
-          line-height: 1.12;
-          letter-spacing: -0.03em;
-          font-weight: 800;
-        }
+.service-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(88,168,255,0.24), rgba(122,92,255,0.22));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 18px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 12px 28px rgba(88,168,255,0.16);
+}
 
-        .price-highlight {
-          margin-top: 16px;
-          padding: 14px 14px 12px;
-          border-radius: 16px;
-          background:
-            linear-gradient(135deg, rgba(88,168,255,0.10), rgba(122,92,255,0.08));
-          border: 1px solid rgba(88,168,255,0.12);
-        }
+.service-card h3,
+.price-card h3 {
+  margin: 0 0 12px;
+  font-size: 25px;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  font-weight: 900;
+}
 
-        .price-topline {
-          font-size: 11px;
-          text-transform: uppercase;
-          letter-spacing: 0.14em;
-          color: #9db0ff;
-          margin-bottom: 8px;
-        }
+.price-highlight {
+  margin-top: 18px;
+  padding: 15px 15px 13px;
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, rgba(88,168,255,0.12), rgba(122,92,255,0.10));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+}
 
-        .price-big {
-          font-size: 30px;
-          font-weight: 900;
-          line-height: 1;
-          letter-spacing: -0.04em;
-          color: white;
-        }
+.price-topline {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #aac1ff;
+  margin-bottom: 8px;
+}
 
-        .service-actions,
-        .price-action {
-          margin-top: 18px;
-        }
+.price-big {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: white;
+}
 
-        .card-btn {
-          width: 100%;
-          padding: 13px 15px;
-          border-radius: 14px;
-          border: 1px solid rgba(88,168,255,0.12);
-          background: linear-gradient(135deg, rgba(88,168,255,0.20), rgba(122,92,255,0.14));
-          color: white;
-          font-weight: 800;
-          cursor: pointer;
-        }
+.card-btn {
+  width: 100%;
+  min-height: 48px;
+  padding: 13px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background:
+    linear-gradient(135deg, rgba(88,168,255,0.22), rgba(122,92,255,0.18));
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow:
+    0 10px 24px rgba(88,168,255,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
 
-        .testimonial-top {
-          display: flex;
-          justify-content: center;
-          gap: 8px;
-          margin-bottom: 14px;
-          color: #c8bdff;
-          font-size: 14px;
-          font-weight: 700;
-        }
+.card-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 36px rgba(88,168,255,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.14);
+}
 
-        .testimonial-name {
-          margin-top: 16px;
-          font-weight: 700;
-        }
+.price-card.featured {
+  position: relative;
+  transform: scale(1.03);
+  border-color: rgba(88,168,255,0.24);
+  box-shadow:
+    0 30px 70px rgba(88,168,255,0.14),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
 
-        .testimonial-role {
-          margin-top: 4px;
-          color: rgba(255,255,255,0.5);
-          font-size: 14px;
-        }
+.featured-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #58a8ff, #7a5cff);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  box-shadow: 0 12px 28px rgba(88,168,255,0.18);
+}
 
-        .testimonial-result {
-          margin-top: 14px;
-          display: inline-block;
-          padding: 8px 12px;
-          border-radius: 999px;
-          background: rgba(88,168,255,0.12);
-          color: #b9d9ff;
-          font-size: 13px;
-        }
+.price-subtitle {
+  color: rgba(255,255,255,0.62);
+  margin-bottom: 14px;
+  font-size: 14px;
+}
 
-        .price-card.featured {
-          position: relative;
-          transform: scale(1.02);
-          border-color: rgba(88,168,255,0.26);
-        }
+.price-value {
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  margin-bottom: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #d9e5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-        .featured-badge {
-          position: absolute;
-          top: 14px;
-          right: 14px;
-          padding: 7px 11px;
-          border-radius: 999px;
-          background: linear-gradient(135deg, #58a8ff, #7a5cff);
-          font-size: 11px;
-          font-weight: 900;
-        }
-
-        .price-subtitle {
-          color: rgba(255,255,255,0.62);
-          margin-bottom: 14px;
-          font-size: 14px;
-        }
-
-        .price-value {
-          font-size: 40px;
-          font-weight: 900;
-          line-height: 1;
-          letter-spacing: -0.04em;
-          margin-bottom: 16px;
-        }
-
-        .price-list,
-        .info-list {
-          margin: 0;
-          padding-left: 18px;
-          color: rgba(255,255,255,0.80);
-          line-height: 1.8;
-          text-align: left;
-          font-size: 14px;
-        }
-
+.price-list {
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.82;
+  text-align: left;
+  font-size: 14px;
+}
         .split-section {
           display: grid;
           grid-template-columns: 0.95fr 1.05fr;
@@ -1847,34 +1819,42 @@ export default function App() {
           }
 
           .service-card,
-          .reason-card,
-          .testimonial-card,
-          .price-card {
-            padding: 18px;
-          }
+.reason-card,
+.testimonial-card,
+.price-card {
+  padding: 18px;
+}
 
-          .service-card h3,
-          .reason-card h3,
-          .price-card h3,
-          .info-box h3 {
-            font-size: 22px;
-          }
+.service-card,
+.price-card {
+  border-radius: 24px;
+}
 
-          .service-card p,
-          .reason-card p,
-          .testimonial-card p,
-          .info-box p {
-            font-size: 14px;
-            line-height: 1.58;
-          }
+.service-card h3,
+.reason-card h3,
+.price-card h3,
+.info-box h3 {
+  font-size: 22px;
+}
 
-          .price-big {
-            font-size: 26px;
-          }
+.price-big {
+  font-size: 24px;
+}
 
-          .price-value {
-            font-size: 34px;
-          }
+.price-value {
+  font-size: 32px;
+}
+
+.price-highlight {
+  border-radius: 18px;
+}
+
+.featured-badge {
+  top: 14px;
+  right: 14px;
+  font-size: 9px;
+  padding: 7px 10px;
+}
 
           .price-card.featured {
             transform: none;
@@ -2177,28 +2157,7 @@ export default function App() {
     </div>
   </div>
 </section>
-                  <div style={{ display: "grid", gap: "16px" }}>
-                    <div className="metric-card hover-lift">
-                      <div className="metric-value">39€</div>
-                      <div className="metric-label">Promo software al mese</div>
-                    </div>
-
-                    <div className="metric-card hover-lift">
-                      <div className="metric-value">App</div>
-                      <div className="metric-label">Esperienza moderna e semplice</div>
-                    </div>
-
-                    <div className="metric-card hover-lift">
-                      <div className="metric-value">+ fiducia</div>
-                      <div className="metric-label">Immagine più forte e professionale</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
+                  
         <section id="servizi" className="section">
           <div className="container">
             <div className="section-intro center reveal">
@@ -2493,3 +2452,4 @@ export default function App() {
     </div>
   );
 }
+
