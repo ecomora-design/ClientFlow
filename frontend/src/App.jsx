@@ -3,7 +3,6 @@ import { useEffect, useMemo, useState } from "react";
 const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 const WHATSAPP_NUMBER = "393884027650";
 
-
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [offerBarVisible, setOfferBarVisible] = useState(true);
@@ -37,6 +36,7 @@ export default function App() {
     const timer = setInterval(() => {
       setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
+
     return () => clearInterval(timer);
   }, []);
 
@@ -46,9 +46,7 @@ export default function App() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
+          if (entry.isIntersecting) entry.target.classList.add("visible");
         });
       },
       { threshold: 0.15 }
@@ -61,7 +59,6 @@ export default function App() {
 
   useEffect(() => {
     const cards = document.querySelectorAll(".tilt");
-
     const listeners = [];
 
     cards.forEach((card) => {
@@ -71,10 +68,8 @@ export default function App() {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-
         const rotateX = -(y - centerY) / 14;
         const rotateY = (x - centerX) / 14;
 
@@ -84,7 +79,8 @@ export default function App() {
       };
 
       const onLeave = () => {
-        card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
+        card.style.transform =
+          "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
       };
 
       card.addEventListener("mousemove", onMove);
@@ -118,6 +114,7 @@ export default function App() {
     }));
 
     if (section) section.scrollIntoView({ behavior: "smooth" });
+
     setMobileMenuOpen(false);
     setShowPopup(false);
   }
@@ -130,6 +127,7 @@ export default function App() {
 
     try {
       setSending(true);
+
       await fetch(`${API_URL}/contacts`, {
         method: "POST",
         headers: {
@@ -290,6 +288,7 @@ export default function App() {
           background: #070a12;
           color: white;
         }
+
         a, button, input, textarea { font-family: inherit; }
         a { text-decoration: none; color: inherit; }
 
@@ -524,449 +523,461 @@ export default function App() {
         }
 
         .navbar-wrap {
-  position: sticky;
-  top: 12px;
-  z-index: 160;
-  padding: 0 14px;
-}
+          position: sticky;
+          top: 12px;
+          z-index: 160;
+          padding: 0 14px;
+        }
 
-.navbar-shell {
-  width: min(1180px, calc(100% - 8px));
-  margin: 0 auto;
-  border: 1px solid rgba(255,255,255,0.08);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025)),
-    rgba(10, 14, 24, 0.72);
-  backdrop-filter: blur(22px) saturate(180%);
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  border-radius: 24px;
-  box-shadow:
-    0 16px 50px rgba(0,0,0,0.28),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-}
+        .navbar-shell {
+          width: min(1180px, calc(100% - 8px));
+          margin: 0 auto;
+          border: 1px solid rgba(255,255,255,0.08);
+          background:
+            linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025)),
+            rgba(10, 14, 24, 0.72);
+          backdrop-filter: blur(22px) saturate(180%);
+          -webkit-backdrop-filter: blur(22px) saturate(180%);
+          border-radius: 24px;
+          box-shadow:
+            0 16px 50px rgba(0,0,0,0.28),
+            inset 0 1px 0 rgba(255,255,255,0.05);
+        }
 
-.navbar-inner {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 18px;
-  padding: 12px 16px;
-  min-height: 74px;
-}
+        .navbar-inner {
+          display: grid;
+          grid-template-columns: auto 1fr auto;
+          align-items: center;
+          gap: 18px;
+          padding: 12px 16px;
+          min-height: 74px;
+        }
 
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  min-width: max-content;
-}
+        .brand {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          min-width: max-content;
+        }
 
-.brand img {
-  height: 46px;
-  width: auto;
-  filter: drop-shadow(0 0 18px rgba(122,92,255,0.24));
-}
+        .brand img {
+          height: 46px;
+          width: auto;
+          filter: drop-shadow(0 0 18px rgba(122,92,255,0.24));
+        }
 
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.02;
-}
+        .brand-text {
+          display: flex;
+          flex-direction: column;
+          line-height: 1.02;
+        }
 
-.brand-title {
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
+        .brand-title {
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: -0.03em;
+        }
 
-.brand-sub {
-  font-size: 11px;
-  color: rgba(255,255,255,0.52);
-  margin-top: 4px;
-}
+        .brand-sub {
+          font-size: 11px;
+          color: rgba(255,255,255,0.52);
+          margin-top: 4px;
+        }
 
-.nav-center {
-  display: flex;
-  justify-content: center;
-}
+        .nav-center {
+          display: flex;
+          justify-content: center;
+        }
 
-.nav-links {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.035);
-  border: 1px solid rgba(255,255,255,0.05);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
-}
+        .nav-links {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.035);
+          border: 1px solid rgba(255,255,255,0.05);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+        }
 
-.nav-links a {
-  position: relative;
-  padding: 10px 14px;
-  border-radius: 999px;
-  color: rgba(255,255,255,0.72);
-  font-size: 14px;
-  font-weight: 600;
-  transition:
-    color 0.22s ease,
-    background 0.22s ease,
-    transform 0.22s ease,
-    box-shadow 0.22s ease;
-}
+        .nav-links a {
+          position: relative;
+          padding: 10px 14px;
+          border-radius: 999px;
+          color: rgba(255,255,255,0.72);
+          font-size: 14px;
+          font-weight: 600;
+          transition:
+            color 0.22s ease,
+            background 0.22s ease,
+            transform 0.22s ease,
+            box-shadow 0.22s ease;
+        }
 
-.nav-links a:hover {
-  background: rgba(255,255,255,0.07);
-  color: white;
-  transform: translateY(-1px);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-}
+        .nav-links a:hover {
+          background: rgba(255,255,255,0.07);
+          color: white;
+          transform: translateY(-1px);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+        }
 
-.nav-right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
-}
+        .nav-right {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          gap: 10px;
+        }
 
-.wa-top {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  padding: 0 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.98), rgba(236,243,255,0.96));
-  color: #090b12;
-  font-weight: 800;
-  font-size: 14px;
-  box-shadow:
-    0 10px 24px rgba(255,255,255,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.8);
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
-}
+        .wa-top {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 46px;
+          padding: 0 18px;
+          border-radius: 999px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background:
+            linear-gradient(135deg, rgba(255,255,255,0.98), rgba(236,243,255,0.96));
+          color: #090b12;
+          font-weight: 800;
+          font-size: 14px;
+          box-shadow:
+            0 10px 24px rgba(255,255,255,0.08),
+            inset 0 1px 0 rgba(255,255,255,0.8);
+          transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
 
-.wa-top:hover {
-  transform: translateY(-1px);
-  box-shadow:
-    0 14px 28px rgba(255,255,255,0.12),
-    inset 0 1px 0 rgba(255,255,255,0.9);
-}
+        .wa-top:hover {
+          transform: translateY(-1px);
+          box-shadow:
+            0 14px 28px rgba(255,255,255,0.12),
+            inset 0 1px 0 rgba(255,255,255,0.9);
+        }
 
-.menu-toggle {
-  display: none;
-  width: 48px;
-  height: 48px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025)),
-    rgba(255,255,255,0.03);
-  color: white;
-  cursor: pointer;
-  box-shadow:
-    0 8px 22px rgba(0,0,0,0.16),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-}
+        .menu-toggle {
+          display: none;
+          width: 48px;
+          height: 48px;
+          border-radius: 16px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background:
+            linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025)),
+            rgba(255,255,255,0.03);
+          color: white;
+          cursor: pointer;
+          box-shadow:
+            0 8px 22px rgba(0,0,0,0.16),
+            inset 0 1px 0 rgba(255,255,255,0.05);
+        }
 
-.menu-lines {
-  position: relative;
-  width: 18px;
-  height: 14px;
-  display: inline-block;
-}
+        .menu-lines {
+          position: relative;
+          width: 18px;
+          height: 14px;
+          display: inline-block;
+        }
 
-.menu-lines span {
-  position: absolute;
-  left: 0;
-  width: 18px;
-  height: 2px;
-  border-radius: 999px;
-  background: white;
-  transition: transform 0.28s ease, opacity 0.28s ease, top 0.28s ease;
-}
+        .menu-lines span {
+          position: absolute;
+          left: 0;
+          width: 18px;
+          height: 2px;
+          border-radius: 999px;
+          background: white;
+          transition: transform 0.28s ease, opacity 0.28s ease, top 0.28s ease;
+        }
 
-.menu-lines span:nth-child(1) { top: 0; }
-.menu-lines span:nth-child(2) { top: 6px; }
-.menu-lines span:nth-child(3) { top: 12px; }
+        .menu-lines span:nth-child(1) { top: 0; }
+        .menu-lines span:nth-child(2) { top: 6px; }
+        .menu-lines span:nth-child(3) { top: 12px; }
 
-.menu-lines.open span:nth-child(1) {
-  top: 6px;
-  transform: rotate(45deg);
-}
+        .menu-lines.open span:nth-child(1) {
+          top: 6px;
+          transform: rotate(45deg);
+        }
 
-.menu-lines.open span:nth-child(2) {
-  opacity: 0;
-}
+        .menu-lines.open span:nth-child(2) {
+          opacity: 0;
+        }
 
-.menu-lines.open span:nth-child(3) {
-  top: 6px;
-  transform: rotate(-45deg);
-}
+        .menu-lines.open span:nth-child(3) {
+          top: 6px;
+          transform: rotate(-45deg);
+        }
 
-.mobile-menu {
-  display: none;
-  padding: 0 14px 14px;
-}
+        .mobile-menu {
+          display: none;
+          padding: 0 14px 14px;
+        }
 
-.mobile-menu.show {
-  display: block;
-}
+        .mobile-menu.show {
+          display: block;
+        }
 
-.mobile-menu-card {
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding-top: 14px;
-}
+        .mobile-menu-card {
+          border-top: 1px solid rgba(255,255,255,0.06);
+          padding-top: 14px;
+        }
 
-.mobile-menu-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
+        .mobile-menu-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
 
-.mobile-nav-item {
-  min-height: 84px;
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.07);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
-    rgba(255,255,255,0.03);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-align: center;
-  padding: 14px 10px;
-  color: white;
-  backdrop-filter: blur(10px);
-}
+        .mobile-nav-item {
+          min-height: 84px;
+          border-radius: 20px;
+          border: 1px solid rgba(255,255,255,0.07);
+          background:
+            linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+            rgba(255,255,255,0.03);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          text-align: center;
+          padding: 14px 10px;
+          color: white;
+          backdrop-filter: blur(10px);
+        }
 
-.mobile-nav-icon {
-  font-size: 18px;
-}
+        .mobile-nav-icon {
+          font-size: 18px;
+        }
 
-.mobile-nav-label {
-  font-size: 12px;
-  font-weight: 700;
-}
+        .mobile-nav-label {
+          font-size: 12px;
+          font-weight: 700;
+        }
 
-.mobile-wa {
-  margin-top: 12px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 50px;
-  padding: 0 16px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #58a8ff, #7a5cff);
-  color: white;
-  font-weight: 800;
-  box-shadow: 0 14px 28px rgba(88,168,255,0.18);
-}
-
-@media (max-width: 768px) {
-  .nav-center,
-  .nav-right .wa-top {
-    display: none;
-  }
-
-  .navbar-wrap {
-    top: 10px;
-    padding: 0 10px;
-  }
-
-  .navbar-shell {
-    border-radius: 22px;
-  }
-
-  .navbar-inner {
-    grid-template-columns: 48px 1fr 48px;
-    min-height: 70px;
-    padding: 10px 12px;
-  }
-
-  .menu-toggle {
-    display: inline-flex;
-    justify-self: start;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .brand {
-    justify-self: center;
-    gap: 0;
-  }
-
-  .brand img {
-    height: 58px;
-  }
-
-  .brand-text {
-    display: none;
-  }
-
-  .mobile-menu-card {
-    padding-top: 12px;
-  }
-
-  .mobile-menu-grid {
-    gap: 10px;
-    margin-top: 4px;
-  }
-
-  .mobile-nav-item {
-    min-height: 80px;
-    border-radius: 18px;
-    padding: 12px 8px;
-  }
-
-  .mobile-nav-label {
-    font-size: 12px;
-  }
-}
+        .mobile-wa {
+          margin-top: 12px;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          min-height: 50px;
+          padding: 0 16px;
+          border-radius: 18px;
+          background: linear-gradient(135deg, #58a8ff, #7a5cff);
+          color: white;
+          font-weight: 800;
+          box-shadow: 0 14px 28px rgba(88,168,255,0.18);
+        }
 
         .hero {
-  padding: 110px 0 84px;
-}
+          padding: 110px 0 84px;
+        }
 
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 56px;
-  align-items: center;
-}
+        .hero-grid {
+          display: grid;
+          grid-template-columns: 1.05fr 0.95fr;
+          gap: 56px;
+          align-items: center;
+        }
 
-.hero-copy {
-  max-width: 680px;
-}
+        .hero-copy {
+          max-width: 680px;
+        }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.045);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.82);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  margin-bottom: 22px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-}
+        .badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 16px;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.08);
+          color: rgba(255,255,255,0.82);
+          font-size: 12px;
+          letter-spacing: 0.04em;
+          margin-bottom: 22px;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+        }
 
-.hero h1 {
-  margin: 0 0 18px;
-  font-size: 78px;
-  line-height: 0.9;
-  letter-spacing: -0.075em;
-  max-width: 760px;
-  font-weight: 900;
-  background: linear-gradient(180deg, #ffffff 0%, #e7eeff 52%, #bfd0ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-wrap: balance;
-}
+        .hero h1 {
+          margin: 0 0 18px;
+          font-size: 78px;
+          line-height: 0.9;
+          letter-spacing: -0.075em;
+          max-width: 760px;
+          font-weight: 900;
+          background: linear-gradient(180deg, #ffffff 0%, #e7eeff 52%, #bfd0ff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-wrap: balance;
+        }
 
-.hero p {
-  margin: 0;
-  max-width: 600px;
-  font-size: 18px;
-  line-height: 1.78;
-  color: rgba(255,255,255,0.68);
-}
+        .hero p {
+          margin: 0;
+          max-width: 600px;
+          font-size: 18px;
+          line-height: 1.78;
+          color: rgba(255,255,255,0.68);
+        }
 
-.hero-actions {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
+        .hero-actions {
+          display: flex;
+          gap: 14px;
+          flex-wrap: wrap;
+          margin-top: 30px;
+        }
 
-.hero-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 22px;
-}
+        .btn-primary {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 54px;
+          padding: 16px 26px;
+          border-radius: 18px;
+          border: 1px solid rgba(255,255,255,0.06);
+          cursor: pointer;
+          font-weight: 800;
+          font-size: 15px;
+          letter-spacing: -0.01em;
+          color: white;
+          background: linear-gradient(135deg, #58a8ff, #7a5cff);
+          box-shadow:
+            0 14px 34px rgba(88,168,255,0.22),
+            inset 0 1px 0 rgba(255,255,255,0.12);
+          overflow: hidden;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+        }
 
-.hero-tag {
-  padding: 9px 13px;
-  border-radius: 999px;
-  background: rgba(88,168,255,0.08);
-  border: 1px solid rgba(88,168,255,0.10);
-  color: rgba(255,255,255,0.84);
-  font-size: 13px;
-}
+        .btn-primary::before {
+          content: "";
+          position: absolute;
+          inset: -2px;
+          border-radius: inherit;
+          background: linear-gradient(135deg, #58a8ff, #7a5cff);
+          opacity: 0.35;
+          filter: blur(14px);
+          z-index: -1;
+          transition: opacity 0.3s ease;
+        }
 
-.hero-tag.promo {
-  background: linear-gradient(135deg, #58a8ff, #7a5cff);
-  color: white;
-  font-weight: 900;
-  box-shadow: 0 10px 28px rgba(88,168,255,0.24);
-}
+        .btn-primary::after {
+          content: "";
+          position: absolute;
+          top: -50%;
+          left: -120%;
+          width: 60%;
+          height: 200%;
+          transform: rotate(20deg);
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.22),
+            transparent
+          );
+          transition: left 0.8s ease;
+        }
 
-.hero-visual {
-  position: relative;
-}
+        .btn-primary:hover {
+          transform: translateY(-2px) scale(1.015);
+          box-shadow:
+            0 20px 44px rgba(88,168,255,0.30),
+            inset 0 1px 0 rgba(255,255,255,0.14);
+        }
 
-.hero-stack {
-  display: grid;
-  gap: 18px;
-}
+        .btn-primary:hover::before {
+          opacity: 0.55;
+        }
 
-.hero-top-card {
-  border-radius: 34px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background:
-    linear-gradient(180deg, rgba(88,168,255,0.10), rgba(122,92,255,0.06)),
-    linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-  padding: 14px;
-  box-shadow: 0 34px 90px rgba(0,0,0,0.30);
-}
+        .btn-primary:hover::after {
+          left: 150%;
+        }
 
-.hero-top-image {
-  width: 100%;
-  height: 330px;
-  object-fit: cover;
-  object-position: center 18%;
-  border-radius: 26px;
-  display: block;
-}
+        .btn-primary:active {
+          transform: scale(0.97);
+        }
 
-@media (max-width: 1024px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 34px;
-  }
+        .btn-secondary {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 54px;
+          padding: 15px 22px;
+          border-radius: 18px;
+          border: 1px solid rgba(255,255,255,0.10);
+          background:
+            linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025)),
+            rgba(255,255,255,0.03);
+          color: white;
+          font-weight: 700;
+          cursor: pointer;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+          transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+        }
 
-  .hero-top-image {
-    height: 280px;
-  }
-}
+        .btn-secondary:hover {
+          transform: translateY(-2px);
+          background:
+            linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03)),
+            rgba(255,255,255,0.04);
+          border-color: rgba(255,255,255,0.16);
+        }
 
-@media (max-width: 768px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
+        .hero-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 22px;
+        }
 
-  .hero h1 {
-    font-size: 42px;
-  }
+        .hero-tag {
+          padding: 9px 13px;
+          border-radius: 999px;
+          background: rgba(88,168,255,0.08);
+          border: 1px solid rgba(88,168,255,0.10);
+          color: rgba(255,255,255,0.84);
+          font-size: 13px;
+        }
 
-  .hero-metrics {
-    grid-template-columns: 1fr;
-  }
+        .hero-tag.promo {
+          background: linear-gradient(135deg, #58a8ff, #7a5cff);
+          color: white;
+          font-weight: 900;
+          box-shadow: 0 10px 28px rgba(88,168,255,0.24);
+        }
 
-  .hero {
-    padding: 60px 0;
-  }
-}
+        .hero-visual {
+          position: relative;
+        }
+
+        .hero-stack {
+          display: grid;
+          gap: 18px;
+        }
+
+        .hero-top-card {
+          border-radius: 34px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background:
+            linear-gradient(180deg, rgba(88,168,255,0.10), rgba(122,92,255,0.06)),
+            linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+          padding: 14px;
+          box-shadow: 0 34px 90px rgba(0,0,0,0.30);
+        }
+
+        .hero-top-image {
+          width: 100%;
+          height: 330px;
+          object-fit: cover;
+          object-position: center 18%;
+          border-radius: 26px;
+          display: block;
+        }
+
+        .hero-metrics {
+          display: grid;
+          grid-template-columns: 1.12fr 0.88fr;
+          gap: 14px;
+          align-items: stretch;
+        }
 
         .metric-main,
         .metric-card,
@@ -1035,7 +1046,7 @@ export default function App() {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          padding: 18px 18px;
+          padding: 18px;
         }
 
         .metric-value {
@@ -1110,173 +1121,213 @@ export default function App() {
           grid-template-columns: repeat(3, 1fr);
         }
 
-       .services-grid.four {
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-}
+        .services-grid.four {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 22px;
+        }
 
         .pricing-grid {
-  grid-template-columns: repeat(3, 1fr);
-  align-items: stretch;
-  gap: 24px;
-}
+          grid-template-columns: repeat(3, 1fr);
+          align-items: stretch;
+          gap: 24px;
+        }
 
         .service-card,
-.price-card {
-  position: relative;
-  padding: 22px;
-  border-radius: 30px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background:
-    radial-gradient(circle at top left, rgba(88,168,255,0.10), transparent 34%),
-    radial-gradient(circle at bottom right, rgba(122,92,255,0.10), transparent 34%),
-    linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-  box-shadow:
-    0 24px 60px rgba(0,0,0,0.24),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-  overflow: hidden;
-}
+        .price-card {
+          position: relative;
+          padding: 22px;
+          border-radius: 30px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background:
+            radial-gradient(circle at top left, rgba(88,168,255,0.10), transparent 34%),
+            radial-gradient(circle at bottom right, rgba(122,92,255,0.10), transparent 34%),
+            linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+          box-shadow:
+            0 24px 60px rgba(0,0,0,0.24),
+            inset 0 1px 0 rgba(255,255,255,0.05);
+          overflow: hidden;
+        }
 
-.service-card::after,
-.price-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: linear-gradient(
-    135deg,
-    rgba(255,255,255,0.10),
-    rgba(255,255,255,0.00) 28%,
-    rgba(255,255,255,0.00) 72%,
-    rgba(255,255,255,0.05)
-  );
-  opacity: 0.75;
-}
+        .service-card::after,
+        .price-card::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          pointer-events: none;
+          background: linear-gradient(
+            135deg,
+            rgba(255,255,255,0.10),
+            rgba(255,255,255,0.00) 28%,
+            rgba(255,255,255,0.00) 72%,
+            rgba(255,255,255,0.05)
+          );
+          opacity: 0.75;
+        }
 
-.service-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 18px;
-  background:
-    linear-gradient(135deg, rgba(88,168,255,0.24), rgba(122,92,255,0.22));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  margin-bottom: 18px;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.10),
-    0 12px 28px rgba(88,168,255,0.16);
-}
+        .service-icon {
+          width: 50px;
+          height: 50px;
+          border-radius: 18px;
+          background:
+            linear-gradient(135deg, rgba(88,168,255,0.24), rgba(122,92,255,0.22));
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 22px;
+          margin-bottom: 18px;
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.10),
+            0 12px 28px rgba(88,168,255,0.16);
+        }
 
-.service-card h3,
-.price-card h3 {
-  margin: 0 0 12px;
-  font-size: 25px;
-  line-height: 1.08;
-  letter-spacing: -0.035em;
-  font-weight: 900;
-}
+        .service-card h3,
+        .reason-card h3,
+        .price-card h3,
+        .info-box h3 {
+          margin: 0 0 12px;
+          font-size: 24px;
+          line-height: 1.12;
+          letter-spacing: -0.03em;
+          font-weight: 800;
+        }
 
-.price-highlight {
-  margin-top: 18px;
-  padding: 15px 15px 13px;
-  border-radius: 20px;
-  background:
-    linear-gradient(135deg, rgba(88,168,255,0.12), rgba(122,92,255,0.10));
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
-}
+        .price-highlight {
+          margin-top: 18px;
+          padding: 15px 15px 13px;
+          border-radius: 20px;
+          background:
+            linear-gradient(135deg, rgba(88,168,255,0.12), rgba(122,92,255,0.10));
+          border: 1px solid rgba(255,255,255,0.08);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+        }
 
-.price-topline {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: #aac1ff;
-  margin-bottom: 8px;
-}
+        .price-topline {
+          font-size: 10px;
+          text-transform: uppercase;
+          letter-spacing: 0.18em;
+          color: #aac1ff;
+          margin-bottom: 8px;
+        }
 
-.price-big {
-  font-size: 28px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  color: white;
-}
+        .price-big {
+          font-size: 28px;
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: -0.05em;
+          color: white;
+        }
 
-.card-btn {
-  width: 100%;
-  min-height: 48px;
-  padding: 13px 16px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background:
-    linear-gradient(135deg, rgba(88,168,255,0.22), rgba(122,92,255,0.18));
-  color: white;
-  font-weight: 800;
-  cursor: pointer;
-  box-shadow:
-    0 10px 24px rgba(88,168,255,0.12),
-    inset 0 1px 0 rgba(255,255,255,0.06);
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-}
+        .service-actions,
+        .price-action {
+          margin-top: 18px;
+        }
 
-.card-btn:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 18px 36px rgba(88,168,255,0.18),
-    inset 0 1px 0 rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.14);
-}
+        .card-btn {
+          width: 100%;
+          min-height: 48px;
+          padding: 13px 16px;
+          border-radius: 16px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background:
+            linear-gradient(135deg, rgba(88,168,255,0.22), rgba(122,92,255,0.18));
+          color: white;
+          font-weight: 800;
+          cursor: pointer;
+          box-shadow:
+            0 10px 24px rgba(88,168,255,0.12),
+            inset 0 1px 0 rgba(255,255,255,0.06);
+          transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+        }
 
-.price-card.featured {
-  position: relative;
-  transform: scale(1.03);
-  border-color: rgba(88,168,255,0.24);
-  box-shadow:
-    0 30px 70px rgba(88,168,255,0.14),
-    inset 0 1px 0 rgba(255,255,255,0.06);
-}
+        .card-btn:hover {
+          transform: translateY(-2px);
+          box-shadow:
+            0 18px 36px rgba(88,168,255,0.18),
+            inset 0 1px 0 rgba(255,255,255,0.08);
+          border-color: rgba(255,255,255,0.14);
+        }
 
-.featured-badge {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #58a8ff, #7a5cff);
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  box-shadow: 0 12px 28px rgba(88,168,255,0.18);
-}
+        .testimonial-top {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-bottom: 14px;
+          color: #c8bdff;
+          font-size: 14px;
+          font-weight: 700;
+        }
 
-.price-subtitle {
-  color: rgba(255,255,255,0.62);
-  margin-bottom: 14px;
-  font-size: 14px;
-}
+        .testimonial-name {
+          margin-top: 16px;
+          font-weight: 700;
+        }
 
-.price-value {
-  font-size: 42px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.06em;
-  margin-bottom: 18px;
-  background: linear-gradient(180deg, #ffffff 0%, #d9e5ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+        .testimonial-role {
+          margin-top: 4px;
+          color: rgba(255,255,255,0.5);
+          font-size: 14px;
+        }
 
-.price-list {
-  margin: 0;
-  padding-left: 18px;
-  color: rgba(255,255,255,0.82);
-  line-height: 1.82;
-  text-align: left;
-  font-size: 14px;
-}
+        .testimonial-result {
+          margin-top: 14px;
+          display: inline-block;
+          padding: 8px 12px;
+          border-radius: 999px;
+          background: rgba(88,168,255,0.12);
+          color: #b9d9ff;
+          font-size: 13px;
+        }
+
+        .price-card.featured {
+          position: relative;
+          transform: scale(1.03);
+          border-color: rgba(88,168,255,0.24);
+          box-shadow:
+            0 30px 70px rgba(88,168,255,0.14),
+            inset 0 1px 0 rgba(255,255,255,0.06);
+        }
+
+        .featured-badge {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          padding: 8px 12px;
+          border-radius: 999px;
+          background: linear-gradient(135deg, #58a8ff, #7a5cff);
+          font-size: 10px;
+          font-weight: 900;
+          letter-spacing: 0.1em;
+          box-shadow: 0 12px 28px rgba(88,168,255,0.18);
+        }
+
+        .price-subtitle {
+          color: rgba(255,255,255,0.62);
+          margin-bottom: 14px;
+          font-size: 14px;
+        }
+
+        .price-value {
+          font-size: 42px;
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: -0.06em;
+          margin-bottom: 18px;
+          background: linear-gradient(180deg, #ffffff 0%, #d9e5ff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .price-list,
+        .info-list {
+          margin: 0;
+          padding-left: 18px;
+          color: rgba(255,255,255,0.82);
+          line-height: 1.82;
+          text-align: left;
+          font-size: 14px;
+        }
+
         .split-section {
           display: grid;
           grid-template-columns: 0.95fr 1.05fr;
@@ -1309,17 +1360,9 @@ export default function App() {
           transition: transform 0.8s ease;
         }
 
-        #food .visual-wrap img {
-          object-position: center 38%;
-        }
-
-        #beauty .visual-wrap img {
-          object-position: center 24%;
-        }
-
-        #web .visual-wrap img {
-          object-position: center 18%;
-        }
+        #food .visual-wrap img { object-position: center 38%; }
+        #beauty .visual-wrap img { object-position: center 24%; }
+        #web .visual-wrap img { object-position: center 18%; }
 
         .visual-wrap:hover img {
           transform: scale(1.03);
@@ -1585,13 +1628,6 @@ export default function App() {
             padding: 6px 10px 0;
           }
 
-          .btn-primary {
-            width: 100%;
-            padding: 15px;
-            font-size: 14px;
-            border-radius: 16px;
-          }
-
           .offer-bar-inner {
             width: min(520px, 100%);
             border-radius: 14px;
@@ -1819,42 +1855,42 @@ export default function App() {
           }
 
           .service-card,
-.reason-card,
-.testimonial-card,
-.price-card {
-  padding: 18px;
-}
+          .reason-card,
+          .testimonial-card,
+          .price-card {
+            padding: 18px;
+          }
 
-.service-card,
-.price-card {
-  border-radius: 24px;
-}
+          .service-card,
+          .price-card {
+            border-radius: 24px;
+          }
 
-.service-card h3,
-.reason-card h3,
-.price-card h3,
-.info-box h3 {
-  font-size: 22px;
-}
+          .service-card h3,
+          .reason-card h3,
+          .price-card h3,
+          .info-box h3 {
+            font-size: 22px;
+          }
 
-.price-big {
-  font-size: 24px;
-}
+          .price-big {
+            font-size: 24px;
+          }
 
-.price-value {
-  font-size: 32px;
-}
+          .price-value {
+            font-size: 32px;
+          }
 
-.price-highlight {
-  border-radius: 18px;
-}
+          .price-highlight {
+            border-radius: 18px;
+          }
 
-.featured-badge {
-  top: 14px;
-  right: 14px;
-  font-size: 9px;
-  padding: 7px 10px;
-}
+          .featured-badge {
+            top: 14px;
+            right: 14px;
+            font-size: 9px;
+            padding: 7px 10px;
+          }
 
           .price-card.featured {
             transform: none;
@@ -1869,17 +1905,9 @@ export default function App() {
             height: 220px;
           }
 
-          #food .visual-wrap img {
-            object-position: center 34%;
-          }
-
-          #beauty .visual-wrap img {
-            object-position: center 22%;
-          }
-
-          #web .visual-wrap img {
-            object-position: center 18%;
-          }
+          #food .visual-wrap img { object-position: center 34%; }
+          #beauty .visual-wrap img { object-position: center 22%; }
+          #web .visual-wrap img { object-position: center 18%; }
 
           .contact-left {
             max-width: 100%;
@@ -1948,6 +1976,7 @@ export default function App() {
           .btn-primary,
           .btn-secondary,
           .card-btn {
+            width: 100%;
             min-height: 50px;
           }
 
@@ -1993,8 +2022,9 @@ export default function App() {
           <div className="offer-bar-inner shine">
             <span className="offer-pill">OFFERTA ATTIVA</span>
             <span className="offer-text">
-              Solo per un tempo limitato i software sono disponibili a <span className="offer-strong">39€/mese</span>.
-              Tempo rimasto: <span className="offer-time">{formatTime(timeLeft)}</span>
+              Solo per un tempo limitato i software sono disponibili a{" "}
+              <span className="offer-strong">39€/mese</span>. Tempo rimasto:{" "}
+              <span className="offer-time">{formatTime(timeLeft)}</span>
             </span>
             <button className="offer-close" onClick={() => setOfferBarVisible(false)}>
               ×
@@ -2004,160 +2034,165 @@ export default function App() {
       )}
 
       <div className="navbar-wrap">
-  <header className="navbar-shell">
-    <div className="container navbar-inner">
-      <button className="menu-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-        <span className={`menu-lines ${mobileMenuOpen ? "open" : ""}`}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </button>
+        <header className="navbar-shell">
+          <div className="container navbar-inner">
+            <button className="menu-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              <span className={`menu-lines ${mobileMenuOpen ? "open" : ""}`}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
 
-      <a href="#top" className="brand">
-        <img src="/logo.png" alt="ClientFlow" />
-        <div className="brand-text">
-          <div className="brand-title">ClientFlow</div>
-          <div className="brand-sub">Più clienti. Meno stress.</div>
-        </div>
-      </a>
+            <a href="#top" className="brand">
+              <img src="/logo.png" alt="ClientFlow" />
+              <div className="brand-text">
+                <div className="brand-title">ClientFlow</div>
+                <div className="brand-sub">Più clienti. Meno stress.</div>
+              </div>
+            </a>
 
-      <div className="nav-center">
-        <nav className="nav-links">
-          <a href="#servizi">Servizi</a>
-          <a href="#food">Food</a>
-          <a href="#beauty">Beauty</a>
-          <a href="#pricing">Prezzi</a>
-          <a href="#faq">FAQ</a>
-          <a href="#contatti">Contatti</a>
-        </nav>
+            <div className="nav-center">
+              <nav className="nav-links">
+                <a href="#servizi">Servizi</a>
+                <a href="#food">Food</a>
+                <a href="#beauty">Beauty</a>
+                <a href="#pricing">Prezzi</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contatti">Contatti</a>
+              </nav>
+            </div>
+
+            <div className="nav-right">
+              <a href={whatsappLink} target="_blank" rel="noreferrer" className="wa-top">
+                WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <div className={`mobile-menu ${mobileMenuOpen ? "show" : ""}`}>
+            <div className="container mobile-menu-card">
+              <div className="mobile-menu-grid">
+                <a className="mobile-nav-item" href="#servizi" onClick={() => setMobileMenuOpen(false)}>
+                  <span className="mobile-nav-icon">⚡</span>
+                  <span className="mobile-nav-label">Servizi</span>
+                </a>
+                <a className="mobile-nav-item" href="#food" onClick={() => setMobileMenuOpen(false)}>
+                  <span className="mobile-nav-icon">🍽️</span>
+                  <span className="mobile-nav-label">Food</span>
+                </a>
+                <a className="mobile-nav-item" href="#beauty" onClick={() => setMobileMenuOpen(false)}>
+                  <span className="mobile-nav-icon">✂️</span>
+                  <span className="mobile-nav-label">Beauty</span>
+                </a>
+                <a className="mobile-nav-item" href="#pricing" onClick={() => setMobileMenuOpen(false)}>
+                  <span className="mobile-nav-icon">💎</span>
+                  <span className="mobile-nav-label">Prezzi</span>
+                </a>
+                <a className="mobile-nav-item" href="#faq" onClick={() => setMobileMenuOpen(false)}>
+                  <span className="mobile-nav-icon">❔</span>
+                  <span className="mobile-nav-label">FAQ</span>
+                </a>
+                <a className="mobile-nav-item" href="#contatti" onClick={() => setMobileMenuOpen(false)}>
+                  <span className="mobile-nav-icon">📩</span>
+                  <span className="mobile-nav-label">Contatti</span>
+                </a>
+              </div>
+
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noreferrer"
+                className="mobile-wa"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Scrivici
+              </a>
+            </div>
+          </div>
+        </header>
       </div>
 
-      <div className="nav-right">
-        <a href={whatsappLink} target="_blank" rel="noreferrer" className="wa-top">
-          WhatsApp
-        </a>
-      </div>
-    </div>
-
-    <div className={`mobile-menu ${mobileMenuOpen ? "show" : ""}`}>
-      <div className="container mobile-menu-card">
-        <div className="mobile-menu-grid">
-          <a className="mobile-nav-item" href="#servizi" onClick={() => setMobileMenuOpen(false)}>
-            <span className="mobile-nav-icon">⚡</span>
-            <span className="mobile-nav-label">Servizi</span>
-          </a>
-          <a className="mobile-nav-item" href="#food" onClick={() => setMobileMenuOpen(false)}>
-            <span className="mobile-nav-icon">🍽️</span>
-            <span className="mobile-nav-label">Food</span>
-          </a>
-          <a className="mobile-nav-item" href="#beauty" onClick={() => setMobileMenuOpen(false)}>
-            <span className="mobile-nav-icon">✂️</span>
-            <span className="mobile-nav-label">Beauty</span>
-          </a>
-          <a className="mobile-nav-item" href="#pricing" onClick={() => setMobileMenuOpen(false)}>
-            <span className="mobile-nav-icon">💎</span>
-            <span className="mobile-nav-label">Prezzi</span>
-          </a>
-          <a className="mobile-nav-item" href="#faq" onClick={() => setMobileMenuOpen(false)}>
-            <span className="mobile-nav-icon">❔</span>
-            <span className="mobile-nav-label">FAQ</span>
-          </a>
-          <a className="mobile-nav-item" href="#contatti" onClick={() => setMobileMenuOpen(false)}>
-            <span className="mobile-nav-icon">📩</span>
-            <span className="mobile-nav-label">Contatti</span>
-          </a>
-        </div>
-
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noreferrer"
-          className="mobile-wa"
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          Scrivici
-        </a>
-      </div>
-    </div>
-  </header>
-</div>
       <main id="top">
-       <section className="hero">
-  <div className="container hero-grid">
-    <div className="hero-copy fade-up">
-      <div className="badge">SOFTWARE PREMIUM · SITI WEB · PIÙ CLIENTI CHE RITORNANO</div>
+        <section className="hero">
+          <div className="container hero-grid">
+            <div className="hero-copy fade-up">
+              <div className="badge">SOFTWARE PREMIUM · SITI WEB · PIÙ CLIENTI CHE RITORNANO</div>
 
-      <h1>
-        Fai crescere la tua attività con un’immagine più forte e un sistema più semplice.
-      </h1>
+              <h1>
+                Fai crescere la tua attività con un’immagine più forte e un sistema più semplice.
+              </h1>
 
-      <p>
-        Creiamo software Beauty e Food, siti web ed e-commerce pensati per aumentare
-        il valore percepito della tua attività, semplificare le richieste e aiutare
-        i clienti a tornare più facilmente.
-      </p>
+              <p>
+                Creiamo software Beauty e Food, siti web ed e-commerce pensati per aumentare
+                il valore percepito della tua attività, semplificare le richieste e aiutare
+                i clienti a tornare più facilmente.
+              </p>
 
-      <div className="hero-actions">
-        <button
-          className="btn-primary"
-          onClick={() => goToContacts("Software promo 39€/mese")}
-        >
-          Scopri come funziona
-        </button>
+              <div className="hero-actions">
+                <button
+                  className="btn-primary"
+                  onClick={() => goToContacts("Software promo 39€/mese")}
+                >
+                  Scopri come funziona
+                </button>
 
-        <a href="#pricing" className="btn-secondary">
-          Vedi prezzi e soluzioni
-        </a>
-      </div>
+                <a href="#pricing" className="btn-secondary">
+                  Vedi prezzi e soluzioni
+                </a>
+              </div>
 
-      <div className="hero-tags">
-        <span className="hero-tag promo">🔥 Promo da 39€/mese</span>
-        <span className="hero-tag">Esperienza anche come app</span>
-        <span className="hero-tag">Design premium</span>
-      </div>
-    </div>
-
-    <div className="hero-visual fade-scale fade-scale-delay-1">
-      <div className="hero-stack">
-        <div className="hero-top-card hover-lift shine reveal">
-          <img src="/hero-business.jpg" alt="ClientFlow preview" className="hero-top-image" />
-        </div>
-
-        <div className="hero-metrics">
-          <div className="metric-main hover-lift reveal">
-            <div className="metric-kicker">Perché funziona</div>
-            <div className="metric-title">
-              Più ordine per te, più semplicità per il cliente.
+              <div className="hero-tags">
+                <span className="hero-tag promo">🔥 Promo da 39€/mese</span>
+                <span className="hero-tag">Esperienza anche come app</span>
+                <span className="hero-tag">Design premium</span>
+              </div>
             </div>
-            <div className="metric-text">
-              Un’esperienza chiara, moderna e veloce rende la tua attività più forte,
-              più credibile e più facile da scegliere di nuovo.
+
+            <div className="hero-visual fade-scale fade-scale-delay-1">
+              <div className="hero-stack">
+                <div className="hero-top-card hover-lift shine reveal">
+                  <img
+                    src="/hero-business.jpg"
+                    alt="ClientFlow preview"
+                    className="hero-top-image"
+                  />
+                </div>
+
+                <div className="hero-metrics">
+                  <div className="metric-main hover-lift reveal">
+                    <div className="metric-kicker">Perché funziona</div>
+                    <div className="metric-title">
+                      Più ordine per te, più semplicità per il cliente.
+                    </div>
+                    <div className="metric-text">
+                      Un’esperienza chiara, moderna e veloce rende la tua attività più forte,
+                      più credibile e più facile da scegliere di nuovo.
+                    </div>
+                  </div>
+
+                  <div style={{ display: "grid", gap: "16px" }}>
+                    <div className="metric-card hover-lift reveal">
+                      <div className="metric-value">39€</div>
+                      <div className="metric-label">Promo software al mese</div>
+                    </div>
+
+                    <div className="metric-card hover-lift reveal">
+                      <div className="metric-value">App</div>
+                      <div className="metric-label">Uso semplice e immediato</div>
+                    </div>
+
+                    <div className="metric-card hover-lift reveal">
+                      <div className="metric-value">+ valore</div>
+                      <div className="metric-label">Immagine più premium e professionale</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </section>
 
-          <div style={{ display: "grid", gap: "16px" }}>
-            <div className="metric-card hover-lift reveal">
-              <div className="metric-value">39€</div>
-              <div className="metric-label">Promo software al mese</div>
-            </div>
-
-            <div className="metric-card hover-lift reveal">
-              <div className="metric-value">App</div>
-              <div className="metric-label">Uso semplice e immediato</div>
-            </div>
-
-            <div className="metric-card hover-lift reveal">
-              <div className="metric-value">+ valore</div>
-              <div className="metric-label">Immagine più premium e professionale</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-                  
         <section id="servizi" className="section">
           <div className="container">
             <div className="section-intro center reveal">
@@ -2174,7 +2209,10 @@ export default function App() {
             <div className="services-grid four">
               {services.map((service, index) => (
                 <div
-                  className={`service-card tilt reveal hover-lift shine fade-up fade-up-delay-${Math.min(index + 1, 4)}`}
+                  className={`service-card tilt reveal hover-lift shine fade-up fade-up-delay-${Math.min(
+                    index + 1,
+                    4
+                  )}`}
                   key={service.title}
                 >
                   <div>
@@ -2211,7 +2249,10 @@ export default function App() {
             <div className="reasons-grid">
               {reasons.map((reason, index) => (
                 <div
-                  className={`reason-card tilt reveal hover-lift shine fade-up fade-up-delay-${Math.min(index + 1, 3)}`}
+                  className={`reason-card tilt reveal hover-lift shine fade-up fade-up-delay-${Math.min(
+                    index + 1,
+                    3
+                  )}`}
                   key={reason.title}
                 >
                   <h3>{reason.title}</h3>
@@ -2337,7 +2378,10 @@ export default function App() {
             <div className="testimonials-grid">
               {testimonials.map((item, index) => (
                 <div
-                  className={`testimonial-card tilt reveal hover-lift shine fade-up fade-up-delay-${Math.min(index + 1, 3)}`}
+                  className={`testimonial-card tilt reveal hover-lift shine fade-up fade-up-delay-${Math.min(
+                    index + 1,
+                    3
+                  )}`}
                   key={item.name}
                 >
                   <div className="testimonial-top">★★★★★</div>
@@ -2370,9 +2414,7 @@ export default function App() {
                       <span>{item.q}</span>
                       <span className="faq-icon">{isOpen ? "−" : "+"}</span>
                     </button>
-                    <div className={`faq-answer ${isOpen ? "open" : ""}`}>
-                      {item.a}
-                    </div>
+                    <div className={`faq-answer ${isOpen ? "open" : ""}`}>{item.a}</div>
                   </div>
                 );
               })}
@@ -2384,7 +2426,9 @@ export default function App() {
           <div className="container contact-grid">
             <div className="contact-left reveal">
               <div className="section-kicker">Contatti</div>
-              <h2 className="section-title">Richiedi una consulenza e scopri la soluzione giusta per la tua attività.</h2>
+              <h2 className="section-title">
+                Richiedi una consulenza e scopri la soluzione giusta per la tua attività.
+              </h2>
               <p className="section-text">
                 Lascia i tuoi dati e ti ricontattiamo su WhatsApp. In pochi minuti capiamo insieme se per te è più adatto
                 un software, un sito web o un e-commerce.
@@ -2452,4 +2496,3 @@ export default function App() {
     </div>
   );
 }
-
