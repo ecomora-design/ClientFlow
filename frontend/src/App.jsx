@@ -2191,29 +2191,8 @@ export default function App() {
     </div>
   </div>
 </section>
-                  <div style={{ display: "grid", gap: "16px" }}>
-                    <div className="metric-card hover-lift">
-                      <div className="metric-value">39€</div>
-                      <div className="metric-label">Promo software al mese</div>
-                    </div>
 
-                    <div className="metric-card hover-lift">
-                      <div className="metric-value">App</div>
-                      <div className="metric-label">Esperienza moderna e semplice</div>
-                    </div>
-
-                    <div className="metric-card hover-lift">
-                      <div className="metric-value">+ fiducia</div>
-                      <div className="metric-label">Immagine più forte e professionale</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="servizi" className="section">
+<section id="servizi" className="section">
           <div className="container">
             <div className="section-intro center reveal">
               <div className="section-kicker">Cosa offriamo</div>
